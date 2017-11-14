@@ -19,7 +19,6 @@ private:
   Rectangle r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,rb;
   Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15;
 
-  //Main vector to hold vector point pairs
   //Definitions of vector point pairs
   vector<int> v1 = {50,50};vector<int> v2 = {150,50};vector<int> v3 = {250,50};
   vector<int> v4 = {350,50};vector<int> v5 = {50,150};vector<int> v6 = {150,150};
