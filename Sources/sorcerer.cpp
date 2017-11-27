@@ -25,7 +25,7 @@ private:
   //Definitions of vector point pairs
   vector<int> v1 = {50,50};vector<int> v2 = {150,50};vector<int> v3 = {250,50};
   vector<int> v4 = {350,50};vector<int> v5 = {50,150};vector<int> v6 = {150,150};
-  vector<int> v7 = {250,150};vector<int> v8 = {350,150};vector<int> v9 = {50,250};
+  vector<int> v7 = {250,150};vector<int> v8 = {350,150};vector<int> v9 = {50,250};				 
   vector<int> v10 = {150,250};vector<int> v11 = {250,250};vector<int> v12 = {350,250};
   vector<int> v13 = {50,350};vector<int> v14 = {150,350};vector<int> v15 = {250,350};
   vector<int> v16 = {350,350};
@@ -47,7 +47,7 @@ private:
 
   //Output string for the amount of correct locations with it's counter
   int cloc = 0;
-
+  
   //Declaring Leaderboard
   Text leaderBoard;
   Text leader1;
@@ -104,6 +104,7 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
 	r16(Point(350, 350), 100, 100),
 	rb(Point(40, 40), 420, 420),
   clocstr(Point(200,500),50,20,"Tiles not in right spot:"),
+
 	grey(fl_rgb_color(128, 128, 128)),
 
 	red1{ Point(50, 50),"15 Puzzle Tile Images/Red 1-15/Red1Tile.jpg" },              //These are the Red Tile creations
@@ -122,7 +123,7 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
 	red14{ Point(150, 350),"15 Puzzle Tile Images/Red 1-15/Red14Tile.jpg" },
 	red15{ Point(250, 350),"15 Puzzle Tile Images/Red 1-15/Red15Tile.jpg" },
 
-	green1{ Point(50, 50),"15 Puzzle Tile Images/Green 1-15/Green1Tile.jpg" },              //These are the Green Tile creations
+	green1{ Point(50, 50),"15 Puzzle Tile Images/Green 1-15/Green1Tile.jpg" },              //These are the Green Tile creations 
 	green2{ Point(150, 50),"15 Puzzle Tile Images/Green 1-15/Green2Tile.jpg" },
 	green3{ Point(250, 50),"15 Puzzle Tile Images/Green 1-15/Green3Tile.jpg" },
 	green4{ Point(350, 50),"15 Puzzle Tile Images/Green 1-15/Green4Tile.jpg" },
@@ -137,8 +138,6 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
 	green13{ Point(50, 350),"15 Puzzle Tile Images/Green 1-15/Green13Tile.jpg" },
 	green14{ Point(150, 350),"15 Puzzle Tile Images/Green 1-15/Green14Tile.jpg" },
 	green15{ Point(250, 350),"15 Puzzle Tile Images/Green 1-15/Green15Tile.jpg" },
-
-
 	leaderBoard{ Point{ 350,500 }, "LEADERBOARD" }, // Leaderboard objects
 	leader1{ Point{ 350,520 }, "AAA - 9999" },
 	leader2{ Point{ 350,540 }, "BBB - 8888" },
