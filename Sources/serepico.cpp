@@ -4,7 +4,7 @@
 #include "FL/Fl_JPEG_Image.H"
 #include "Point.h"
 #include "Window.h"
-#include "sorcerer.cpp"
+#include "sorcererM.cpp"
 
 using namespace Graph_lib;
 
