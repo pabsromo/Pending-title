@@ -7,6 +7,7 @@
 #include <vector>
 
 using namespace Graph_lib;
+using namespace std;
 
 //------------------------------------------------------------------------------
 
@@ -20,12 +21,16 @@ private:
   Image green1, green2, green3, green4, green5, green6, green7, green8, green9, green10, green11, green12, green13, green14, green15;
 
   Rectangle r16,rb;
-  Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15;
+  Button b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15;//bH
+
+  //bools
+  bool s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15;
+  //int step = 0;
 
   //Definitions of vector point pairs
   vector<int> v1 = {50,50};vector<int> v2 = {150,50};vector<int> v3 = {250,50};
   vector<int> v4 = {350,50};vector<int> v5 = {50,150};vector<int> v6 = {150,150};
-  vector<int> v7 = {250,150};vector<int> v8 = {350,150};vector<int> v9 = {50,250};				 
+  vector<int> v7 = {250,150};vector<int> v8 = {350,150};vector<int> v9 = {50,250};
   vector<int> v10 = {150,250};vector<int> v11 = {250,250};vector<int> v12 = {350,250};
   vector<int> v13 = {50,350};vector<int> v14 = {150,350};vector<int> v15 = {250,350};
   vector<int> v16 = {350,350};
@@ -38,16 +43,26 @@ private:
   vector<int> OGv13 = { 50,350 }; vector<int> OGv14 = { 150,350 }; vector<int> OGv15 = { 250,350 };
   vector<int> OGv16 = { 350,350 };
 
+
   //temporary vectors used when moving pairs
   vector<int> mvx = {0,0};
   vector<int> mvy = {0,0};
   vector<int> mvX = {0,0};
   vector<int> mvY = {0,0};
   vector<int> temp = {0,0};
-
+  vector<int> temp2 = {0,0};
+  /*
+  vector<int> upv = {0,0};
+  vector<int> dnv = {0,0};
+  vector<int> lftv = {0,0};
+  vector<int> rtv = {0,0};
+*/
   //Output string for the amount of correct locations with it's counter
   int cloc = 0;
-  
+  int movenum = 0;
+  int maxmove = 40;
+  //int up, dn, lft, rt;
+
   //Declaring Leaderboard
   Text leaderBoard;
   Text leader1;
@@ -59,6 +74,7 @@ private:
 
   //Outboxes
   Out_box clocstr;
+  Out_box remain;
 
   //Declaring the callbacks
   static void cb_b1(Address, Address);static void cb_b2(Address, Address);
@@ -68,12 +84,20 @@ private:
   static void cb_b9(Address, Address);static void cb_b10(Address, Address);
   static void cb_b11(Address, Address);static void cb_b12(Address, Address);
   static void cb_b13(Address, Address);static void cb_b14(Address, Address);
-  static void cb_b15(Address, Address);
+  static void cb_b15(Address, Address);//static void hinter(Address, Address);
 
   //Declaring the functions
   void f1();void f2();void f3();void f4();void f5();void f6();void f7();
   void f8();void f9();void f10();void f11();void f12();void f13();void f14();
-  void f15();
+  void f15();void outs();void closer();
+  /*void fhint();int mvup();int mvdn();
+  int mvlft();int mvrt();void attachments(int i);void moving(int i);*/
+  void move1();void move2();void move3();void move4();void move5();void move6();
+  void move7();void move8();void move9();void move10();void move11();
+  void move12();void move13();void move14();void move15();void attach1();
+  void attach2();void attach3();void attach4();void attach5();void attach6();
+  void attach7();void attach8();void attach9();void attach10();void attach11();
+  void attach12();void attach13();void attach14();void attach15();
 
   //Background image
   //Image backgnd{Point(0,0),"manydots.jpg"};
@@ -101,9 +125,11 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
 	b13(Point(50, 350), 100, 100, "btn13", cb_b13),
 	b14(Point(150, 350), 100, 100, "btn14", cb_b14),
 	b15(Point(250, 350), 100, 100, "btn15", cb_b15),
+  //bH(Point(200, 550), 50, 20, "Hint", hinter),
 	r16(Point(350, 350), 100, 100),
 	rb(Point(40, 40), 420, 420),
   clocstr(Point(200,500),50,20,"Tiles not in right spot:"),
+  remain(Point(200,525),50,20,"Remaining moves:"),
 
 	grey(fl_rgb_color(128, 128, 128)),
 
@@ -123,7 +149,7 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
 	red14{ Point(150, 350),"15 Puzzle Tile Images/Red 1-15/Red14Tile.jpg" },
 	red15{ Point(250, 350),"15 Puzzle Tile Images/Red 1-15/Red15Tile.jpg" },
 
-	green1{ Point(50, 50),"15 Puzzle Tile Images/Green 1-15/Green1Tile.jpg" },              //These are the Green Tile creations 
+	green1{ Point(50, 50),"15 Puzzle Tile Images/Green 1-15/Green1Tile.jpg" },              //These are the Green Tile creations
 	green2{ Point(150, 50),"15 Puzzle Tile Images/Green 1-15/Green2Tile.jpg" },
 	green3{ Point(250, 50),"15 Puzzle Tile Images/Green 1-15/Green3Tile.jpg" },
 	green4{ Point(350, 50),"15 Puzzle Tile Images/Green 1-15/Green4Tile.jpg" },
@@ -151,135 +177,185 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
     //All attachments
     //attach(backgnd);
     attach(clocstr);
+    attach(remain);
     attach(rb); rb.set_fill_color(grey);
 	  attach(leaderBoard); attach(leader1); // Leaderboard Attachment
 	  attach(leader2); attach(leader3);
 	  attach(leader4); attach(leader5);
 	  attach(leaderCurrent);
-    attach(b1);
-    attach(b2);
-    attach(b3);
-    attach(b4);
-    attach(b5);
-    attach(b6);
-    attach(b7);
-    attach(b8);
-    attach(b9);
-    attach(b10);
-    attach(b11);
-    attach(b12);
-    attach(b13);
-    attach(b14);
-    attach(b15);
+    attach(b1);attach(b2);attach(b3);attach(b4);attach(b5);attach(b6);
+    attach(b7);attach(b8);attach(b9);attach(b10);attach(b11);attach(b12);
+    attach(b13);attach(b14);attach(b15);//attach(bH);
     //Except r16. That is the invisible "empty" spot
 
   // IMAGES
 
 	if (OGv1 == v1)   // This will eventually be the initial check to see if
-		attach(green1); // the numbers START in the correct position
+  {                 // the numbers START in the correct position
+    attach(green1);
+    s1 = true;
+  }
 	else
   {
 		attach(red1);
     cloc++;
+    s1 = false;
   }
 	if (OGv2 == v2)
+  {
 		attach(green2);
+    s2 = true;
+  }
 	else
   {
     attach(red2);
     cloc++;
+    s2 = false;
   }
 	if (OGv3 == v3)
+  {
 		attach(green3);
+    s3 = true;
+  }
 	else
   {
     attach(red3);
     cloc++;
+    s3 = false;
   }
 	if (OGv4 == v4)
+  {
 		attach(green4);
+    s4 = true;
+  }
 	else
   {
     attach(red4);
     cloc++;
+    s4 = false;
   }
 	if (OGv5 == v5)
+  {
 		attach(green5);
+    s5 = true;
+  }
 	else
   {
     attach(red5);
     cloc++;
+    s5 = false;
   }
 	if (OGv6 == v6)
+  {
 		attach(green6);
+    s6 = true;
+  }
 	else
   {
     attach(red6);
     cloc++;
+    s6 = false;
   }
 	if (OGv7 == v7)
+  {
 		attach(green7);
+    s7 = true;
+  }
 	else
   {
     attach(red7);
     cloc++;
+    s7 = false;
   }
 	if (OGv8 == v8)
+  {
 		attach(green8);
+    s8 = true;
+  }
 	else
   {
     attach(red8);
     cloc++;
+    s8 = false;
   }
 	if (OGv9 == v9)
+  {
 		attach(green9);
+    s9 = true;
+  }
 	else
   {
     attach(red9);
     cloc++;
+    s9 = false;
   }
 	if (OGv10 == v10)
+  {
 		attach(green10);
+    s10 = true;
+  }
 	else
   {
     attach(red10);
     cloc++;
+    s10 = false;
   }
 	if (OGv11 == v11)
+  {
 		attach(green11);
+    s11 = true;
+  }
 	else
   {
     attach(red11);
     cloc++;
+    s11 = false;
   }
 	if (OGv12 == v12)
+  {
 		attach(green12);
+    s12 = true;
+  }
 	else
   {
     attach(red12);
     cloc++;
+    s12 = false;
   }
 	if (OGv13 == v13)
+  {
 		attach(green13);
+    s13 = true;
+  }
 	else
   {
     attach(red13);
     cloc++;
+    s13 = false;
   }
 	if (OGv14 == v14)
+  {
 		attach(green14);
+    s14 = true;
+  }
 	else
   {
     attach(red14);
     cloc++;
+    s14 = false;
   }
 	if (OGv15 == v15)
+  {
 		attach(green15);
+    s15 = true;
+  }
 	else
   {
     attach(red15);
     cloc++;
+    s15 = false;
   }
+  outs();
 }
 
 //------------------------------------------------------------------------------
@@ -344,15 +420,82 @@ void Oasis::cb_b14(Address, Address pw)
 void Oasis::cb_b15(Address, Address pw)
 {
   reference_to<Oasis>(pw).f15();
+}/*
+void Oasis::hinter(Address, Address pw)
+{
+  reference_to<Oasis>(pw).fhint();
 }
+*/
 //------------------------------------------------------------------------------
 
 //Functions//
-void Oasis::f1()
+void Oasis::outs()
+{
+  ostringstream oss;
+  oss << cloc;
+  clocstr.put(oss.str());
+  ostringstream oss2;
+  oss2 << maxmove - movenum;
+  remain.put(oss2.str());
+  redraw();
+}
+void Oasis::closer()
+{
+  if(movenum > maxmove)
+    hide();
+}
+/*
+int Oasis::step(vector<int> v1, vector<int> v2)
+{
+  step = step + abs(v1[0]-v2[0])/100;
+  step = step + abs(v1[1]-v2p[1])/100;
+}
+void Oasis::surround()
+{
+
+}
+int Oasis::mvup()
+{
+  //see if the blank space can move up
+  if(v16[1] - 100 > 50)
+  {
+    temp = upv;
+    temp2 = v16;
+    mvx[1] = v16[0] - upv[0];
+    mvy[0] = v16[1] - upv[1];
+    mvX[1] = temp[0] - v16[0];
+    mvY[0] = temp[1] - v16[1];
+    upv = v16;
+    v16 = temp;
+  }
+  //If it can then find which number it switches with and momentarily switch them
+  //then find the distance every number is from it's last position.
+}
+int Oasis::mvdn()
+{
+  return 0;
+}
+int Oasis::mvlft()
+{
+  return 0;
+}
+int Oasis::mvrt()
+{
+ return 0;
+}
+void Oasis::fhint()
+{
+  up = mvup();
+  dn = mvdn();
+  lft = mvlft();
+  rt = mvrt();
+
+}
+*/
+void Oasis::move1()
 {
   if(((((v16[0]==v1[0]-100)||(v16[0]==v1[0]+100))&&(v16[1]==v1[1])))
-  ||((((v16[1]==v1[1]-100)||(v16[1]==v1[1]+100))&&(v16[0]==v1[0]))))
-  {
+  ||((((v16[1]==v1[1]-100)||(v16[1]==v1[1]+100))&&(v16[0]==v1[0])))){
     temp = v1;
     mvx[0] = v16[0] - v1[0];
     mvy[1] = v16[1] - v1[1];
@@ -364,27 +507,33 @@ void Oasis::f1()
     r16.move(mvX[0],mvY[1]);
     v1 = v16;
     v16 = temp;
-	   if (OGv1 == v1)
-     {
-       attach(green1);
-       --cloc;
-     }
-	   else
-     {
-       attach(red1);
-       ++cloc;
-     }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f2()
+void Oasis::attach1()
+{
+  if (OGv1 == v1){
+    attach(green1);
+    --cloc;
+    s1 = true;
+  }
+  else if(s1 == true){
+    attach(red1);
+    ++cloc;
+    s1 = false;
+  }
+}
+void Oasis::f1()
+{
+  move1();
+  attach1();
+  closer();
+  outs();
+}
+void Oasis::move2()
 {
   if(((((v16[0]==v2[0]-100)||(v16[0]==v2[0]+100))&&(v16[1]==v2[1])))
-  ||((((v16[1]==v2[1]-100)||(v16[1]==v2[1]+100))&&(v16[0]==v2[0]))))
-  {
+  ||((((v16[1]==v2[1]-100)||(v16[1]==v2[1]+100))&&(v16[0]==v2[0])))){
     temp = v2;
     mvx[0] = v16[0] - v2[0];
     mvy[1] = v16[1] - v2[1];
@@ -396,27 +545,33 @@ void Oasis::f2()
     r16.move(mvX[0],mvY[1]);
     v2 = v16;
     v16 = temp;
-    if (OGv2 == v2)
-    {
-      attach(green2);
-      --cloc;
-    }
-    else
-    {
-      attach(red2);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f3()
+void Oasis::attach2()
+{
+  if (OGv2 == v2){
+    attach(green2);
+    --cloc;
+    s2 = true;
+  }
+  else if(s2 == true){
+    attach(red2);
+    ++cloc;
+    s2 = false;
+  }
+}
+void Oasis::f2()
+{
+  move2();
+  attach2();
+  closer();
+  outs();
+}
+void Oasis::move3()
 {
   if(((((v16[0]==v3[0]-100)||(v16[0]==v3[0]+100))&&(v16[1]==v3[1])))
-  ||((((v16[1]==v3[1]-100)||(v16[1]==v3[1]+100))&&(v16[0]==v3[0]))))
-  {
+  ||((((v16[1]==v3[1]-100)||(v16[1]==v3[1]+100))&&(v16[0]==v3[0])))){
     temp = v3;
     mvx[0] = v16[0] - v3[0];
     mvy[1] = v16[1] - v3[1];
@@ -428,27 +583,33 @@ void Oasis::f3()
     r16.move(mvX[0],mvY[1]);
     v3 = v16;
     v16 = temp;
-    if (OGv3 == v3)
-    {
-      attach(green3);
-      --cloc;
-    }
-  	else
-    {
-      attach(red3);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f4()
+void Oasis::attach3()
+{
+  if (OGv3 == v3){
+    attach(green3);
+    --cloc;
+    s3 = true;
+  }
+  else if(s3 == true){
+    attach(red3);
+    ++cloc;
+    s3 = false;
+  }
+}
+void Oasis::f3()
+{
+  move3();
+  attach3();
+  closer();
+  outs();
+}
+void Oasis::move4()
 {
   if(((((v16[0]==v4[0]-100)||(v16[0]==v4[0]+100))&&(v16[1]==v4[1])))
-  ||((((v16[1]==v4[1]-100)||(v16[1]==v4[1]+100))&&(v16[0]==v4[0]))))
-  {
+  ||((((v16[1]==v4[1]-100)||(v16[1]==v4[1]+100))&&(v16[0]==v4[0])))){
     temp = v4;
     mvx[0] = v16[0] - v4[0];
     mvy[1] = v16[1] - v4[1];
@@ -460,27 +621,33 @@ void Oasis::f4()
 	  r16.move(mvX[0],mvY[1]);
     v4 = v16;
     v16 = temp;
-    if (OGv4 == v4)
-    {
-      attach(green4);
-      --cloc;
-    }
-  	else
-    {
-      attach(red4);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f5()
+void Oasis::attach4()
+{
+  if (OGv4 == v4){
+    attach(green4);
+    --cloc;
+    s4 = true;
+  }
+  else if(s4 == true){
+    attach(red4);
+    ++cloc;
+    s4 = false;
+  }
+}
+void Oasis::f4()
+{
+  move4();
+  attach4();
+  closer();
+  outs();
+}
+void Oasis::move5()
 {
   if(((((v16[0]==v5[0]-100)||(v16[0]==v5[0]+100))&&(v16[1]==v5[1])))
-  ||((((v16[1]==v5[1]-100)||(v16[1]==v5[1]+100))&&(v16[0]==v5[0]))))
-  {
+  ||((((v16[1]==v5[1]-100)||(v16[1]==v5[1]+100))&&(v16[0]==v5[0])))){
     temp = v5;
     mvx[0] = v16[0] - v5[0];
     mvy[1] = v16[1] - v5[1];
@@ -492,27 +659,33 @@ void Oasis::f5()
 	  r16.move(mvX[0],mvY[1]);
     v5 = v16;
     v16 = temp;
-    if (OGv5 == v5)
-    {
-      attach(green5);
-      --cloc;
-    }
-  	else
-    {
-      attach(red5);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f6()
+void Oasis::attach5()
+{
+  if (OGv5 == v5){
+    attach(green5);
+    --cloc;
+    s5 = true;
+  }
+  else if(s5 == true){
+    attach(red5);
+    ++cloc;
+    s5 = false;
+  }
+}
+void Oasis::f5()
+{
+  move5();
+  attach5();
+  closer();
+  outs();
+}
+void Oasis::move6()
 {
   if(((((v16[0]==v6[0]-100)||(v16[0]==v6[0]+100))&&(v16[1]==v6[1])))
-  ||((((v16[1]==v6[1]-100)||(v16[1]==v6[1]+100))&&(v16[0]==v6[0]))))
-  {
+  ||((((v16[1]==v6[1]-100)||(v16[1]==v6[1]+100))&&(v16[0]==v6[0])))){
     temp = v6;
     mvx[0] = v16[0] - v6[0];
     mvy[1] = v16[1] - v6[1];
@@ -524,27 +697,33 @@ void Oasis::f6()
 	  r16.move(mvX[0],mvY[1]);
     v6 = v16;
     v16 = temp;
-    if (OGv6 == v6)
-    {
-      attach(green6);
-      --cloc;
-    }
-  	else
-    {
-      attach(red6);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f7()
+void Oasis::attach6()
+{
+  if (OGv6 == v6){
+    attach(green6);
+    --cloc;
+    s6 = true;
+  }
+  else if(s6 == true){
+    attach(red6);
+    ++cloc;
+    s6 = false;
+  }
+}
+void Oasis::f6()
+{
+  move6();
+  attach6();
+  closer();
+  outs();
+}
+void Oasis::move7()
 {
   if(((((v16[0]==v7[0]-100)||(v16[0]==v7[0]+100))&&(v16[1]==v7[1])))
-  ||((((v16[1]==v7[1]-100)||(v16[1]==v7[1]+100))&&(v16[0]==v7[0]))))
-  {
+  ||((((v16[1]==v7[1]-100)||(v16[1]==v7[1]+100))&&(v16[0]==v7[0])))){
     temp = v7;
     mvx[0] = v16[0] - v7[0];
     mvy[1] = v16[1] - v7[1];
@@ -556,27 +735,33 @@ void Oasis::f7()
 	  r16.move(mvX[0],mvY[1]);
     v7 = v16;
     v16 = temp;
-    if (OGv7 == v7)
-    {
-      attach(green7);
-      --cloc;
-    }
-  	else
-    {
-      attach(red7);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f8()
+void Oasis::attach7()
+{
+  if (OGv7 == v7){
+    attach(green7);
+    --cloc;
+    s7 = true;
+  }
+  else if(s7 == true){
+    attach(red7);
+    ++cloc;
+    s7 = false;
+  }
+}
+void Oasis::f7()
+{
+  move7();
+  attach7();
+  closer();
+  outs();
+}
+void Oasis::move8()
 {
   if(((((v16[0]==v8[0]-100)||(v16[0]==v8[0]+100))&&(v16[1]==v8[1])))
-  ||((((v16[1]==v8[1]-100)||(v16[1]==v8[1]+100))&&(v16[0]==v8[0]))))
-  {
+  ||((((v16[1]==v8[1]-100)||(v16[1]==v8[1]+100))&&(v16[0]==v8[0])))){
     temp = v8;
     mvx[0] = v16[0] - v8[0];
     mvy[1] = v16[1] - v8[1];
@@ -588,27 +773,33 @@ void Oasis::f8()
 	  r16.move(mvX[0],mvY[1]);
     v8 = v16;
     v16 = temp;
-    if (OGv8 == v8)
-    {
-      attach(green8);
-      --cloc;
-    }
-  	else
-    {
-      attach(red8);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f9()
+void Oasis::attach8()
+{
+  if (OGv8 == v8){
+    attach(green8);
+    --cloc;
+    s8 = true;
+  }
+  else if(s8 == true){
+    attach(red8);
+    ++cloc;
+    s8 = false;
+  }
+}
+void Oasis::f8()
+{
+  move8();
+  attach8();
+  closer();
+  outs();
+}
+void Oasis::move9()
 {
   if(((((v16[0]==v9[0]-100)||(v16[0]==v9[0]+100))&&(v16[1]==v9[1])))
-  ||((((v16[1]==v9[1]-100)||(v16[1]==v9[1]+100))&&(v16[0]==v9[0]))))
-  {
+  ||((((v16[1]==v9[1]-100)||(v16[1]==v9[1]+100))&&(v16[0]==v9[0])))){
     temp = v9;
     mvx[0] = v16[0] - v9[0];
     mvy[1] = v16[1] - v9[1];
@@ -620,27 +811,33 @@ void Oasis::f9()
 	  r16.move(mvX[0],mvY[1]);
     v9 = v16;
     v16 = temp;
-    if (OGv9 == v9)
-    {
-      attach(green9);
-      --cloc;
-    }
-  	else
-    {
-      attach(red9);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f10()
+void Oasis::attach9()
+{
+  if (OGv9 == v9){
+    attach(green9);
+    --cloc;
+    s9 = true;
+  }
+  else if(s9 == true){
+    attach(red9);
+    ++cloc;
+    s9 = false;
+  }
+}
+void Oasis::f9()
+{
+  move9();
+  attach9();
+  closer();
+  outs();
+}
+void Oasis::move10()
 {
   if(((((v16[0]==v10[0]-100)||(v16[0]==v10[0]+100))&&(v16[1]==v10[1])))
-  ||((((v16[1]==v10[1]-100)||(v16[1]==v10[1]+100))&&(v16[0]==v10[0]))))
-  {
+  ||((((v16[1]==v10[1]-100)||(v16[1]==v10[1]+100))&&(v16[0]==v10[0])))){
     temp = v10;
     mvx[0] = v16[0] - v10[0];
     mvy[1] = v16[1] - v10[1];
@@ -652,27 +849,33 @@ void Oasis::f10()
 	  r16.move(mvX[0],mvY[1]);
     v10 = v16;
     v16 = temp;
-    if (OGv10 == v10)
-    {
-      attach(green10);
-      --cloc;
-    }
-  	else
-    {
-      attach(red10);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f11()
+void Oasis::attach10()
+{
+  if (OGv10 == v10){
+    attach(green10);
+    --cloc;
+    s10 = true;
+  }
+  else if(s10 == true){
+    attach(red10);
+    ++cloc;
+    s10 = false;
+  }
+}
+void Oasis::f10()
+{
+  move10();
+  attach10();
+  closer();
+  outs();
+}
+void Oasis::move11()
 {
   if(((((v16[0]==v11[0]-100)||(v16[0]==v11[0]+100))&&(v16[1]==v11[1])))
-  ||((((v16[1]==v11[1]-100)||(v16[1]==v11[1]+100))&&(v16[0]==v11[0]))))
-  {
+  ||((((v16[1]==v11[1]-100)||(v16[1]==v11[1]+100))&&(v16[0]==v11[0])))){
     temp = v11;
     mvx[0] = v16[0] - v11[0];
     mvy[1] = v16[1] - v11[1];
@@ -684,27 +887,33 @@ void Oasis::f11()
 	  r16.move(mvX[0],mvY[1]);
     v11 = v16;
     v16 = temp;
-    if (OGv11 == v11)
-    {
-      attach(green11);
-      --cloc;
-    }
-  	else
-    {
-      attach(red11);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f12()
+void Oasis::attach11()
+{
+  if (OGv11 == v11){
+    attach(green11);
+    --cloc;
+    s11 = true;
+  }
+  else if(s11 == true){
+    attach(red11);
+    ++cloc;
+    s11 = false;
+  }
+}
+void Oasis::f11()
+{
+  move11();
+  attach11();
+  closer();
+  outs();
+}
+void Oasis::move12()
 {
   if(((((v16[0]==v12[0]-100)||(v16[0]==v12[0]+100))&&(v16[1]==v12[1])))
-  ||((((v16[1]==v12[1]-100)||(v16[1]==v12[1]+100))&&(v16[0]==v12[0]))))
-  {
+  ||((((v16[1]==v12[1]-100)||(v16[1]==v12[1]+100))&&(v16[0]==v12[0])))){
     temp = v12;
     mvx[0] = v16[0] - v12[0];
     mvy[1] = v16[1] - v12[1];
@@ -716,27 +925,33 @@ void Oasis::f12()
 	  r16.move(mvX[0],mvY[1]);
     v12 = v16;
     v16 = temp;
-    if (OGv12 == v12)
-    {
-      attach(green12);
-      --cloc;
-    }
-    else
-    {
-      attach(red12);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f13()
+void Oasis::attach12()
+{
+  if (OGv12 == v12){
+    attach(green12);
+    --cloc;
+    s12 = true;
+  }
+  else if(s12 == true){
+    attach(red12);
+    ++cloc;
+    s12 = false;
+  }
+}
+void Oasis::f12()
+{
+  move12();
+  attach12();
+  closer();
+  outs();
+}
+void Oasis::move13()
 {
   if(((((v16[0]==v13[0]-100)||(v16[0]==v13[0]+100))&&(v16[1]==v13[1])))
-  ||((((v16[1]==v13[1]-100)||(v16[1]==v13[1]+100))&&(v16[0]==v13[0]))))
-  {
+  ||((((v16[1]==v13[1]-100)||(v16[1]==v13[1]+100))&&(v16[0]==v13[0])))){
     temp = v13;
     mvx[0] = v16[0] - v13[0];
     mvy[1] = v16[1] - v13[1];
@@ -748,27 +963,33 @@ void Oasis::f13()
 	  r16.move(mvX[0],mvY[1]);
     v13 = v16;
     v16 = temp;
-    if (OGv13 == v13)
-    {
-      attach(green13);
-      --cloc;
-    }
-    else
-    {
-      attach(red13);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f14()
+void Oasis::attach13()
+{
+  if (OGv13 == v13){
+    attach(green13);
+    --cloc;
+    s13 = true;
+  }
+  else if(s13 == true){
+    attach(red13);
+    ++cloc;
+    s13 = false;
+  }
+}
+void Oasis::f13()
+{
+  move13();
+  attach13();
+  closer();
+  outs();
+}
+void Oasis::move14()
 {
   if(((((v16[0]==v14[0]-100)||(v16[0]==v14[0]+100))&&(v16[1]==v14[1])))
-  ||((((v16[1]==v14[1]-100)||(v16[1]==v14[1]+100))&&(v16[0]==v14[0]))))
-  {
+  ||((((v16[1]==v14[1]-100)||(v16[1]==v14[1]+100))&&(v16[0]==v14[0])))){
     temp = v14;
     mvx[0] = v16[0] - v14[0];
     mvy[1] = v16[1] - v14[1];
@@ -780,27 +1001,33 @@ void Oasis::f14()
 	  r16.move(mvX[0],mvY[1]);
     v14 = v16;
     v16 = temp;
-    if (OGv14 == v14)
-    {
-      attach(green14);
-      --cloc;
-    }
-    else
-    {
-      attach(red14);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
 }
-void Oasis::f15()
+void Oasis::attach14()
+{
+  if (OGv14 == v14){
+    attach(green14);
+    --cloc;
+    s14 = true;
+  }
+  else if(s14 == true){
+    attach(red14);
+    ++cloc;
+    s14 = false;
+  }
+}
+void Oasis::f14()
+{
+  move14();
+  attach14();
+  closer();
+  outs();
+}
+void Oasis::move15()
 {
   if(((((v16[0]==v15[0]-100)||(v16[0]==v15[0]+100))&&(v16[1]==v15[1])))
-  ||((((v16[1]==v15[1]-100)||(v16[1]==v15[1]+100))&&(v16[0]==v15[0]))))
-  {
+  ||((((v16[1]==v15[1]-100)||(v16[1]==v15[1]+100))&&(v16[0]==v15[0])))){
     temp = v15;
     mvx[0] = v16[0] - v15[0];
     mvy[1] = v16[1] - v15[1];
@@ -812,19 +1039,26 @@ void Oasis::f15()
 	  r16.move(mvX[0],mvY[1]);
     v15 = v16;
     v16 = temp;
-    if (OGv15 == v15)
-    {
-      attach(green15);
-      --cloc;
-    }
-    else
-    {
-      attach(red15);
-      ++cloc;
-    }
+    movenum++;
   }
-  ostringstream oss;
-  oss << cloc;
-  clocstr.put(oss.str());
-  redraw();
+}
+void Oasis::attach15()
+{
+  if (OGv15 == v15){
+    attach(green15);
+    --cloc;
+    s15 = true;
+  }
+  else if(s15 == true){
+    attach(red15);
+    ++cloc;
+    s15 = false;
+  }
+}
+void Oasis::f15()
+{
+  move15();
+  attach15();
+  closer();
+  outs();
 }
