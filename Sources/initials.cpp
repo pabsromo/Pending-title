@@ -9,6 +9,7 @@
 #include "std_lib_facilities_5.h"
 #include "Window.h"
 #include "FL/Fl_JPEG_Image.H"
+#include "endscreen.cpp"
 
 using namespace Graph_lib;
 
@@ -61,6 +62,17 @@ void Initials_window::enter() {
 	win5.show();
 	//win5.wait_for_button();
 	gui_main();
+	Endscreen_window win6 (Point(100,100), 500, 700, "End Screen");
+	win6.total_moves = win5.maxmoves;
+	win6.correct_tiles = win5.cloc;
+	
+	//
+	//
+	//
+	//
+	//
+	win6.wait_for_button();
+
 }
 
 void Initials_window::clear() {
