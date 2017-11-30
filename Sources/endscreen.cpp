@@ -9,14 +9,10 @@
 #include "FL/Fl_JPEG_Image.H"
 
 using namespace Graph_lib;
-
 struct Endscreen_window: Graph_lib:: Window{  // window opens if no remaining moves
 	Endscreen_window(Point xy, int w, int h, const string& title);
-	void wait_for_button(){
-	while (!button_pushed) Fl::wait(); // wait for enter button to be pressed
-		button_pushed = false;         // before exiting the window...
-		hide();
-	};
+	bool wait_for_button();
+	int gogogo = 0;
 private: // initialize buttons and in box
 	Button replay_button;
 	Button exit_button;
@@ -27,7 +23,6 @@ private: // initialize buttons and in box
 	Text fifth;
 	Text current;
 	button_pushed = false;
-	int gogogo = 0;
 	void replay();
 	void exit();
 };
