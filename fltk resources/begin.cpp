@@ -3,13 +3,13 @@
 // "Programming -- Principles and Practice Using C++" by Bjarne Stroustrup
 //
 // use images and have it change images
-#include "Simple_window.h"
+#include "begin.h"
 
 using namespace Graph_lib;
 
 //------------------------------------------------------------------------------
 
-Simple_window::Simple_window(Point xy, int w, int h, const string& title) :
+beginwin::beginwin(Point xy, int w, int h, const string& title) :
 	Window(xy, w, h, title),
 	next_button(Point((x_max()/2)-50, (y_max()/2)-15), 100, 30, "Start", cb_next),
 	quit_button(Point(x_max() - 70, 0), 70, 20, "QUIT", cb_quit),
@@ -56,7 +56,7 @@ Simple_window::Simple_window(Point xy, int w, int h, const string& title) :
 
 //------------------------------------------------------------------------------
 
-bool Simple_window::wait_for_button()
+bool beginwin::wait_for_button()
 // modified event loop:
 // handle all events (as per default), quit when button_pushed becomes true
 // this allows graphics without control inversion
@@ -64,7 +64,7 @@ bool Simple_window::wait_for_button()
 {
     show();
     button_pushed = false;
-	
+
 #if 1
     // Simpler handler
     while (!button_pushed) Fl::wait();
@@ -79,32 +79,32 @@ bool Simple_window::wait_for_button()
 
 //------------------------------------------------------------------------------
 
-void Simple_window::cb_next(Address, Address pw)
-// call Simple_window::next() for the window located at pw
-{  
-    reference_to<Simple_window>(pw).next();    
-}
-
-//------------------------------------------------------------------------------
-
-void Simple_window::cb_quit(Address, Address pw)
+void beginwin::cb_next(Address, Address pw)
 // call Simple_window::next() for the window located at pw
 {
-	reference_to<Simple_window>(pw).quit();
+    reference_to<beginwin>(pw).next();
 }
 
 //------------------------------------------------------------------------------
 
-void Simple_window::next()
+void beginwin::cb_quit(Address, Address pw)
+// call Simple_window::next() for the window located at pw
+{
+	reference_to<beginwin>(pw).quit();
+}
+
+//------------------------------------------------------------------------------
+
+void beginwin::next()
 {
     button_pushed = true;
     hide();
-	//open next window here
+		go = 1;
 }
 
 //------------------------------------------------------------------------------
 
-void Simple_window::quit()
+void beginwin::quit()
 {
 	button_pushed = true;
 	hide();

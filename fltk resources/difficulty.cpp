@@ -11,13 +11,8 @@ using namespace Graph_lib;
 
 struct Difficulty_window : Graph_lib::Window {
 	Difficulty_window(Point xy, int w, int h, const string& title);
-	void wait_for_button()
-		{
-		while (!button_pushed) Fl::wait(); // Wait for one of the buttons to be pressed before exiting the window
-			button_pushed = false;
-			hide();
-		};
-
+	bool wait_for_button();
+	int difficultyLevel = 0;
 private: // Initializing variables and buttons
 	Button diff1_button;
 	Button diff2_button;
@@ -25,7 +20,6 @@ private: // Initializing variables and buttons
 	Button diff4_button;
 	Button quit_button;
 	Text prompt;
-	int difficultyLevel;
 	bool button_pushed = false;
 	void diff1();
 	void diff2();
@@ -58,16 +52,31 @@ void Difficulty_window::quit() {
 void Difficulty_window::diff1() {
 	difficultyLevel = 1;
 	button_pushed = true;
+	hide();
 }
 void Difficulty_window::diff2() {
 	difficultyLevel = 2;
 	button_pushed = true;
+	hide();
 }
 void Difficulty_window::diff3() {
 	difficultyLevel = 3;
 	button_pushed = true;
+	hide();
 }
 void Difficulty_window::diff4() {
 	difficultyLevel = 4;
 	button_pushed = true;
+	hide();
+}
+bool Difficulty_window::wait_for_button()
+{
+#if 1
+    // Simpler handler
+    while (!button_pushed) Fl::wait();
+    Fl::redraw();
+#else
+
+#endif
+    return button_pushed;
 }

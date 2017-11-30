@@ -4,8 +4,8 @@
 // "Programming -- Principles and Practice Using C++" by Bjarne Stroustrup
 //
 
-#ifndef SIMPLE_WINDOW_GUARD
-#define SIMPLE_WINDOW_GUARD 1
+#ifndef BEGINWIN_GUARD
+#define BEGINWIN_GUARD 1
 
 #include "GUI.h"    // for Simple_window only (doesn't really belong in Window.h)
 #include "Graph.h"
@@ -14,11 +14,11 @@ using namespace Graph_lib;
 
 //------------------------------------------------------------------------------
 
-struct Simple_window : Graph_lib::Window {
-    Simple_window(Point xy, int w, int h, const string& title );
+struct beginwin : Graph_lib::Window {
+    beginwin(Point xy, int w, int h, const string& title );
 
     bool wait_for_button(); // simple event loop
-
+    int go = 0;
 private:
 	Rectangle r1;
 	Rectangle r2;

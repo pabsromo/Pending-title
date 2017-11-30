@@ -14,6 +14,7 @@ using namespace std;
 struct Oasis : Graph_lib::Window
 {
     Oasis(Point xy, int w, int h, const string& title);
+    int diffLev = 0;
 
 private:
   //Declaring all items. Rectangle and Button pairs and Tile images
@@ -34,6 +35,7 @@ private:
   vector<int> v10 = {150,250};vector<int> v11 = {250,250};vector<int> v12 = {350,250};
   vector<int> v13 = {50,350};vector<int> v14 = {150,350};vector<int> v15 = {250,350};
   vector<int> v16 = {350,350};
+
 
   // original position of numbers
   vector<int> OGv1 = { 50,50 }; vector<int> OGv2 = { 150,50 }; vector<int> OGv3 = { 250,50 };
@@ -98,6 +100,7 @@ private:
   void attach2();void attach3();void attach4();void attach5();void attach6();
   void attach7();void attach8();void attach9();void attach10();void attach11();
   void attach12();void attach13();void attach14();void attach15();
+  void placer(vector<int> v, vector<int> ov);
 
   //Background image
   //Image backgnd{Point(0,0),"manydots.jpg"};
@@ -187,6 +190,16 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
     attach(b7);attach(b8);attach(b9);attach(b10);attach(b11);attach(b12);
     attach(b13);attach(b14);attach(b15);//attach(bH);
     //Except r16. That is the invisible "empty" spot
+
+    if(diffLev == 1)
+    {
+      vector<int> v1 = {150,50};vector<int> v2 = {50,50};vector<int> v3 = {250,50};
+      vector<int> v4 = {350,50};vector<int> v5 = {50,150};vector<int> v6 = {150,150};
+      vector<int> v7 = {250,150};vector<int> v8 = {350,150};vector<int> v9 = {50,250};
+      vector<int> v10 = {150,250};vector<int> v11 = {250,250};vector<int> v12 = {350,250};
+      vector<int> v13 = {50,350};vector<int> v14 = {150,350};vector<int> v15 = {250,350};
+      vector<int> v16 = {350,350};
+    }
 
   // IMAGES
 
@@ -443,6 +456,62 @@ void Oasis::closer()
 {
   if(movenum > maxmove)
     hide();
+}
+void Oasis::placer(vector<int> v, vector<int> ov)
+{
+  temp = v;
+  mvx[0] = ov[0] - v[0];
+  mvy[1] = ov[1] - v[1];
+  mvX[0] = temp[0] - ov[0];
+  mvY[1] = temp[1] - ov[1];
+}
+void Oasis::placer1()
+{
+  placer(v1,OGv2);
+  b1.move(mvx[0],mvy[1]);
+  red1.move(mvx[0], mvy[1]);
+  green1.move(mvx[0], mvy[1]);
+  attach1();
+}
+void Oasis::placer2()
+{
+  placer(v1,OGv2);
+  b1.move(mvx[0],mvy[1]);
+  red1.move(mvx[0], mvy[1]);
+  green1.move(mvx[0], mvy[1]);
+  attach1();
+}
+void Oasis::placer3()
+{
+  placer(v1,OGv2);
+  b1.move(mvx[0],mvy[1]);
+  red1.move(mvx[0], mvy[1]);
+  green1.move(mvx[0], mvy[1]);
+  attach1();
+}
+void Oasis::placer4()
+{
+  placer(v1,OGv2);
+  b1.move(mvx[0],mvy[1]);
+  red1.move(mvx[0], mvy[1]);
+  green1.move(mvx[0], mvy[1]);
+  attach1();
+}
+void Oasis::placer5()
+{
+  placer(v1,OGv2);
+  b1.move(mvx[0],mvy[1]);
+  red1.move(mvx[0], mvy[1]);
+  green1.move(mvx[0], mvy[1]);
+  attach1();
+}
+void Oasis::placer6()
+{
+  placer(v1,OGv2);
+  b1.move(mvx[0],mvy[1]);
+  red1.move(mvx[0], mvy[1]);
+  green1.move(mvx[0], mvy[1]);
+  attach1();
 }
 /*
 int Oasis::step(vector<int> v1, vector<int> v2)
