@@ -33,8 +33,8 @@ Difficulty_window::Difficulty_window(Point xy, int w, int h, const string& title
 	:Window{ xy,w,h,title },
 	diff1_button{ Point{ 150,100 },200,100,"Novice (10 Moves)", [](Address,Address pw) {reference_to<Difficulty_window>(pw).diff1(); } },
 	diff2_button{ Point{ 150,220 },200,100,"Pro (20 Moves)", [](Address,Address pw) {reference_to<Difficulty_window>(pw).diff2(); } },
-	diff3_button{ Point{ 150,340 },200,100,"Veteran (30 Moves)", [](Address,Address pw) {reference_to<Difficulty_window>(pw).diff3(); } },
-	diff4_button{ Point{ 150,460 },200,100,"Expert (40 Moves)", [](Address,Address pw) {reference_to<Difficulty_window>(pw).diff4(); } },
+	diff3_button{ Point{ 150,340 },200,100,"Veteran (40 Moves)", [](Address,Address pw) {reference_to<Difficulty_window>(pw).diff3(); } },
+	diff4_button{ Point{ 150,460 },200,100,"Expert (80 Moves)", [](Address,Address pw) {reference_to<Difficulty_window>(pw).diff4(); } },
 	quit_button{ Point{ x_max() - 70,0 }, 70, 20, "Quit", [](Address, Address pw) {reference_to<Difficulty_window>(pw).quit(); } },
 	prompt{ Point{ 185,50 }, "Select a Difficulty!" }
 {

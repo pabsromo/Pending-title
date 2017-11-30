@@ -15,7 +15,7 @@ struct Oasis : Graph_lib::Window
 {
     Oasis(Point xy, int w, int h, const string& title);
     int diffLev = 0;
-
+    void checklevel();
 private:
   //Declaring all items. Rectangle and Button pairs and Tile images
   Image red1, red2, red3, red4, red5, red6, red7, red8, red9, red10, red11, red12, red13, red14, red15;
@@ -100,7 +100,10 @@ private:
   void attach2();void attach3();void attach4();void attach5();void attach6();
   void attach7();void attach8();void attach9();void attach10();void attach11();
   void attach12();void attach13();void attach14();void attach15();
-  void placer(vector<int> v, vector<int> ov);
+  void placer(vector<int> v, vector<int> ov);void placer1();void placer2();
+  void placer3();void placer4();void placer5();void placer6();void placer7();
+  void placer8();void placer9();void placer10();void placer11();void placer12();
+  void placer13();void placer14();void placer15();void levels();
 
   //Background image
   //Image backgnd{Point(0,0),"manydots.jpg"};
@@ -190,185 +193,8 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
     attach(b7);attach(b8);attach(b9);attach(b10);attach(b11);attach(b12);
     attach(b13);attach(b14);attach(b15);//attach(bH);
     //Except r16. That is the invisible "empty" spot
-
-    if(diffLev == 1)
-    {
-      vector<int> v1 = {150,50};vector<int> v2 = {50,50};vector<int> v3 = {250,50};
-      vector<int> v4 = {350,50};vector<int> v5 = {50,150};vector<int> v6 = {150,150};
-      vector<int> v7 = {250,150};vector<int> v8 = {350,150};vector<int> v9 = {50,250};
-      vector<int> v10 = {150,250};vector<int> v11 = {250,250};vector<int> v12 = {350,250};
-      vector<int> v13 = {50,350};vector<int> v14 = {150,350};vector<int> v15 = {250,350};
-      vector<int> v16 = {350,350};
-    }
-
-  // IMAGES
-
-	if (OGv1 == v1)   // This will eventually be the initial check to see if
-  {                 // the numbers START in the correct position
-    attach(green1);
-    s1 = true;
-  }
-	else
-  {
-		attach(red1);
-    cloc++;
-    s1 = false;
-  }
-	if (OGv2 == v2)
-  {
-		attach(green2);
-    s2 = true;
-  }
-	else
-  {
-    attach(red2);
-    cloc++;
-    s2 = false;
-  }
-	if (OGv3 == v3)
-  {
-		attach(green3);
-    s3 = true;
-  }
-	else
-  {
-    attach(red3);
-    cloc++;
-    s3 = false;
-  }
-	if (OGv4 == v4)
-  {
-		attach(green4);
-    s4 = true;
-  }
-	else
-  {
-    attach(red4);
-    cloc++;
-    s4 = false;
-  }
-	if (OGv5 == v5)
-  {
-		attach(green5);
-    s5 = true;
-  }
-	else
-  {
-    attach(red5);
-    cloc++;
-    s5 = false;
-  }
-	if (OGv6 == v6)
-  {
-		attach(green6);
-    s6 = true;
-  }
-	else
-  {
-    attach(red6);
-    cloc++;
-    s6 = false;
-  }
-	if (OGv7 == v7)
-  {
-		attach(green7);
-    s7 = true;
-  }
-	else
-  {
-    attach(red7);
-    cloc++;
-    s7 = false;
-  }
-	if (OGv8 == v8)
-  {
-		attach(green8);
-    s8 = true;
-  }
-	else
-  {
-    attach(red8);
-    cloc++;
-    s8 = false;
-  }
-	if (OGv9 == v9)
-  {
-		attach(green9);
-    s9 = true;
-  }
-	else
-  {
-    attach(red9);
-    cloc++;
-    s9 = false;
-  }
-	if (OGv10 == v10)
-  {
-		attach(green10);
-    s10 = true;
-  }
-	else
-  {
-    attach(red10);
-    cloc++;
-    s10 = false;
-  }
-	if (OGv11 == v11)
-  {
-		attach(green11);
-    s11 = true;
-  }
-	else
-  {
-    attach(red11);
-    cloc++;
-    s11 = false;
-  }
-	if (OGv12 == v12)
-  {
-		attach(green12);
-    s12 = true;
-  }
-	else
-  {
-    attach(red12);
-    cloc++;
-    s12 = false;
-  }
-	if (OGv13 == v13)
-  {
-		attach(green13);
-    s13 = true;
-  }
-	else
-  {
-    attach(red13);
-    cloc++;
-    s13 = false;
-  }
-	if (OGv14 == v14)
-  {
-		attach(green14);
-    s14 = true;
-  }
-	else
-  {
-    attach(red14);
-    cloc++;
-    s14 = false;
-  }
-	if (OGv15 == v15)
-  {
-		attach(green15);
-    s15 = true;
-  }
-	else
-  {
-    attach(red15);
-    cloc++;
-    s15 = false;
-  }
-  outs();
+    s1 = true;s2 = true;s3=true;s4=true;s5=true;s6=true;s7=true;s8=true;
+    s9=true;s10=true;s11=true;s12=true;s13=true;s14=true;s15=true;
 }
 
 //------------------------------------------------------------------------------
@@ -459,15 +285,12 @@ void Oasis::closer()
 }
 void Oasis::placer(vector<int> v, vector<int> ov)
 {
-  temp = v;
-  mvx[0] = ov[0] - v[0];
-  mvy[1] = ov[1] - v[1];
-  mvX[0] = temp[0] - ov[0];
-  mvY[1] = temp[1] - ov[1];
+  mvx[0] = v[0] - ov[0];
+  mvy[1] = v[1] - ov[1];
 }
 void Oasis::placer1()
 {
-  placer(v1,OGv2);
+  placer(v1,OGv1);
   b1.move(mvx[0],mvy[1]);
   red1.move(mvx[0], mvy[1]);
   green1.move(mvx[0], mvy[1]);
@@ -475,43 +298,174 @@ void Oasis::placer1()
 }
 void Oasis::placer2()
 {
-  placer(v1,OGv2);
-  b1.move(mvx[0],mvy[1]);
-  red1.move(mvx[0], mvy[1]);
-  green1.move(mvx[0], mvy[1]);
-  attach1();
+  placer(v2,OGv2);
+  b2.move(mvx[0],mvy[1]);
+  red2.move(mvx[0], mvy[1]);
+  green2.move(mvx[0], mvy[1]);
+  attach2();
 }
 void Oasis::placer3()
 {
-  placer(v1,OGv2);
-  b1.move(mvx[0],mvy[1]);
-  red1.move(mvx[0], mvy[1]);
-  green1.move(mvx[0], mvy[1]);
-  attach1();
+  placer(v3,OGv3);
+  b3.move(mvx[0],mvy[1]);
+  red3.move(mvx[0], mvy[1]);
+  green3.move(mvx[0], mvy[1]);
+  attach3();
 }
 void Oasis::placer4()
 {
-  placer(v1,OGv2);
-  b1.move(mvx[0],mvy[1]);
-  red1.move(mvx[0], mvy[1]);
-  green1.move(mvx[0], mvy[1]);
-  attach1();
+  placer(v4,OGv4);
+  b4.move(mvx[0],mvy[1]);
+  red4.move(mvx[0], mvy[1]);
+  green4.move(mvx[0], mvy[1]);
+  attach4();
 }
 void Oasis::placer5()
 {
-  placer(v1,OGv2);
-  b1.move(mvx[0],mvy[1]);
-  red1.move(mvx[0], mvy[1]);
-  green1.move(mvx[0], mvy[1]);
-  attach1();
+  placer(v5,OGv5);
+  b5.move(mvx[0],mvy[1]);
+  red5.move(mvx[0], mvy[1]);
+  green5.move(mvx[0], mvy[1]);
+  attach5();
 }
 void Oasis::placer6()
 {
-  placer(v1,OGv2);
-  b1.move(mvx[0],mvy[1]);
-  red1.move(mvx[0], mvy[1]);
-  green1.move(mvx[0], mvy[1]);
-  attach1();
+  placer(v6,OGv6);
+  b6.move(mvx[0],mvy[1]);
+  red6.move(mvx[0], mvy[1]);
+  green6.move(mvx[0], mvy[1]);
+  attach6();
+}
+void Oasis::placer7()
+{
+  placer(v7,OGv7);
+  b7.move(mvx[0],mvy[1]);
+  red7.move(mvx[0], mvy[1]);
+  green7.move(mvx[0], mvy[1]);
+  attach7();
+}
+void Oasis::placer8()
+{
+  placer(v8,OGv8);
+  b8.move(mvx[0],mvy[1]);
+  red8.move(mvx[0], mvy[1]);
+  green8.move(mvx[0], mvy[1]);
+  attach8();
+}
+void Oasis::placer9()
+{
+  placer(v9,OGv9);
+  b9.move(mvx[0],mvy[1]);
+  red9.move(mvx[0], mvy[1]);
+  green9.move(mvx[0], mvy[1]);
+  attach9();
+}
+void Oasis::placer10()
+{
+  placer(v10,OGv10);
+  b10.move(mvx[0],mvy[1]);
+  red10.move(mvx[0], mvy[1]);
+  green10.move(mvx[0], mvy[1]);
+  attach10();
+}
+void Oasis::placer11()
+{
+  placer(v11,OGv11);
+  b11.move(mvx[0],mvy[1]);
+  red11.move(mvx[0], mvy[1]);
+  green11.move(mvx[0], mvy[1]);
+  attach11();
+}
+void Oasis::placer12()
+{
+  placer(v12,OGv12);
+  b12.move(mvx[0],mvy[1]);
+  red12.move(mvx[0], mvy[1]);
+  green12.move(mvx[0], mvy[1]);
+  attach12();
+}
+void Oasis::placer13()
+{
+  placer(v13,OGv13);
+  b13.move(mvx[0],mvy[1]);
+  red13.move(mvx[0], mvy[1]);
+  green13.move(mvx[0], mvy[1]);
+  attach13();
+}
+void Oasis::placer14()
+{
+  placer(v14,OGv14);
+  b14.move(mvx[0],mvy[1]);
+  red14.move(mvx[0], mvy[1]);
+  green14.move(mvx[0], mvy[1]);
+  attach14();
+}
+void Oasis::placer15()
+{
+  placer(v15,OGv15);
+  b15.move(mvx[0],mvy[1]);
+  red15.move(mvx[0], mvy[1]);
+  green15.move(mvx[0], mvy[1]);
+  attach15();
+}
+void Oasis::levels()
+{
+  if(diffLev == 1)
+  {
+    v1 = {50,50};v2 = {150,50};v3 = {250,50};
+    v4 = {350,50};v5 = {50,150};v6 = {150,150};
+    v7 = {350,150};v8 = {250,350};v9 = {50,250};
+    v10 = {150,250};v11 = {350,350};v12 = {250,150};
+    v13 = {50,350};v14 = {150,350};v15 = {350,250};
+    v16 = {250,250};cloc=10;
+  }
+  else if(diffLev == 2)
+  {
+    v1 = {50,50};v2 = {250,150};v3 = {250,50};
+    v4 = {350,50};v5 = {50,150};v6 = {150,50};
+    v7 = {350,250};v8 = {350,350};v9 = {50,250};
+    v10 = {150,250};v11 = {350,150};v12 = {250,350};
+    v13 = {50,350};v14 = {250,250};v15 = {150,350};
+    v16 = {150,150};cloc=7;
+  }
+  else if(diffLev == 3)
+  {
+    v1 = {250,250};v2 = {150,250};v3 = {50,150};
+    v4 = {50,50};v5 = {250,350};v6 = {350,350};
+    v7 = {250,150};v8 = {150,50};v9 = {50,250};
+    v10 = {350,250};v11 = {350,150};v12 = {250,50};
+    v13 = {50,350};v14 = {150,350};v15 = {350,50};
+    v16 = {150,150};cloc=4;
+  }
+  else if(diffLev == 4)
+  {
+    v1 = {350,350};v2 = {350,250};v3 = {50,250};
+    v4 = {50,350};v5 = {250,350};v6 = {250,250};
+    v7 = {150,250};v8 = {150,350};v9 = {350,150};
+    v10 = {250,150};v11 = {250,50};v12 = {150,50};
+    v13 = {350,50};v14 = {150,150};v15 = {50,150};
+    v16 = {50,50};
+  }
+}
+void Oasis::checklevel()
+{
+  levels();
+  placer1();
+  placer2();
+  placer3();
+  placer4();
+  placer5();
+  placer6();
+  placer7();
+  placer8();
+  placer9();
+  placer10();
+  placer11();
+  placer12();
+  placer13();
+  placer14();
+  placer15();
+  outs();
 }
 /*
 int Oasis::step(vector<int> v1, vector<int> v2)
