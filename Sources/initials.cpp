@@ -18,25 +18,21 @@ struct Initials_window: Graph_lib:: Window{
 private: // initialize buttons and in box
 	Button enter_button;
 	Button exit_button;
-	Button clear_button;
 	In_box initial_box;
 	bool button_pushed = false;
 	void enter();
 	void exit();
-	void clear();
 };
 
 Initials_window::Initials_window(Point xy, int w, int h, const string& title) // initialize the buttons' locations and callbacks
 	:Window{ xy,w,h,title },
 	enter_button{Point{ 400,350 },100,50,"Enter", [](Address,Address pw) {reference_to<Initials_window>(pw).enter(); } },
-	exit_button{Point{ 150,400 },100,50,"Exit", [](Address,Address pw) {reference_to<Initials_window>(pw).exit(); } },
-	clear_button{Point{ 250,400 },100,50,"Clear", [](Address,Address pw) {reference_to<Initials_window>(pw).clear(); } },
+	exit_button{Point{ 400,400 },100,50,"Exit", [](Address,Address pw) {reference_to<Initials_window>(pw).exit(); } },
 	initial_box{Point{ 150,350 },200,50,"Enter your initials"}
 	{
 	// attach each widget
 	attach(enter_button);
 	attach(exit_button);
-	attach(clear_button);
 	attach(initial_box);
 	}
 	
@@ -54,13 +50,7 @@ void Initials_window::enter() {
 	hide();
 }
 
-void Initials_window::clear() {
-	// redraws page to clear any previous inputs
-	button_pushed = true;
-	redraw();
-}
-bool Initials_window::wait_for_button()
-{
+bool Initials_window::wait_for_button(){
 #if 1
     // Simpler handler
     while (!button_pushed) Fl::wait();
