@@ -3,7 +3,7 @@
 //
 
 #include "rules.h"
-//#include "difficulty.cpp"
+#include "difficulty.cpp"
 
 using namespace Graph_lib;
 
@@ -60,8 +60,8 @@ void Rule_window::next()
 {
     button_pushed = true;
     hide();
-	//Difficulty_window win3{ Point{ 100,100 },500,700,"Select a Difficulty" };
-	//win3.wait_for_button();
+	Difficulty_window win3{ Point{ 100,100 },500,700,"Select a Difficulty" };
+	win3.wait_for_button();
 }
 
 //------------------------------------------------------------------------------

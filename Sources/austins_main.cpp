@@ -18,9 +18,6 @@ try {
   Simple_window win1(Point(100,200),400,450,"Start Screen");
   win1.wait_for_button();
 
-  //Rule_window win2(Point(100, 200), 720, 100, "Objective");
-  //win2.wait_for_button();
-  
   return 0;
 }
 catch(exception& e) {

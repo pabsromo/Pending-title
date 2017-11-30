@@ -1,12 +1,12 @@
 // DIFFICULTY LEVEL WINDOW
-#include "fltk.h"
 #include "Graph.h"
 #include "GUI.h"
 #include "Point.h"
-#include "Simple_window.h"
 #include "std_lib_facilities_5.h"
 #include "Window.h"
 #include "FL/Fl_JPEG_Image.H"
+//#include "sorcerer.cpp"
+#include "initials.cpp"
 
 using namespace Graph_lib;
 
@@ -36,25 +36,6 @@ private: // Initializing variables and buttons
 	
 };
 
-int main()
-try {
-		Difficulty_window win{ Point{ 100,100 },500,700,"Select a Difficulty" };
-		win.wait_for_button();
-
-		return gui_main();
-
-	//	return 0;
-}
-catch (exception& e) {
-	cerr << "exception: " << e.what() << '\n';
-	return 1;
-}
-catch (...) {
-	cerr << "Some exception\n";
-	return 2;
-}
-
-
 
 Difficulty_window::Difficulty_window(Point xy, int w, int h, const string& title) // Initializing buttons locations and callbacks
 	:Window{ xy,w,h,title },
@@ -79,16 +60,40 @@ void Difficulty_window::quit() {
 void Difficulty_window::diff1() {
 	difficultyLevel = 1;
 	button_pushed = true;
+	hide();
+	Initials_window win4 (Point(100,100), 500,700, "Enter your initials");
+	win4.diff = 1;
+	//Oasis win4(Point(0, 0), 500, 700, "Main Game",1);
+	//win4.checklevel();
+	win4.wait_for_button();
 }
 void Difficulty_window::diff2() {
 	difficultyLevel = 2;
 	button_pushed = true;
+	hide();
+	Initials_window win4(Point(100, 100), 500, 700, "Enter your initials");
+	win4.diff = 2;
+	//Oasis win4(Point(0, 0), 500, 700, "Main Game", 2);
+	//win4.checklevel();
+	win4.wait_for_button();
 }
 void Difficulty_window::diff3() {
 	difficultyLevel = 3;
 	button_pushed = true;
+	hide();
+	Initials_window win4(Point(100, 100), 500, 700, "Enter your initials");
+	win4.diff = 3;
+	//Oasis win4(Point(0, 0), 500, 700, "Main Game", 3);
+	//win4.checklevel();
+	win4.wait_for_button();
 }
 void Difficulty_window::diff4() {
 	difficultyLevel = 4;
 	button_pushed = true;
+	hide();
+	Initials_window win4(Point(100, 100), 500, 700, "Enter your initials");
+	win4.diff = 4;
+	//Oasis win4(Point(0, 0), 500, 700, "Main Game", 4);
+	//win4.checklevel();
+	win4.wait_for_button();
 }
