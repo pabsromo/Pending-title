@@ -105,7 +105,7 @@ private:
   void switchover1(vector<int> v);void revert1();void checkstep();void revert2();
   void switchover2(vector<int> v);void switchover3(vector<int> v);
   void switchover4(vector<int> v);
-  void sorthint();
+  void sorthint(); void hint_hider();
   //Background image
   //Image backgnd{Point(0,0),"manydots.jpg"};
 
@@ -666,11 +666,11 @@ int Oasis::mvup()
   isabove(v13);isabove(v14);isabove(v15);
   if(up == 1)
   {
-    nstep = 0;
+    //nstep = 0;
     checkstep();
     revert1();
     return nstep;
-  }
+  } else return 80;
 }
 int Oasis::mvdn()
 {
@@ -679,7 +679,7 @@ int Oasis::mvdn()
   isbelow(v13);isbelow(v14);isbelow(v15);
   if(dn == 1)
   {
-    nstep = 0;
+    //nstep = 0;
     checkstep();
     revert2();
     return nstep;
@@ -692,7 +692,7 @@ int Oasis::mvlft()
   isleft(v13);isleft(v14);isleft(v15);
   if(lft == 1)
   {
-    nstep = 0;
+    //nstep = 0;
     checkstep();
     revert3();
     return nstep;
@@ -705,7 +705,7 @@ int Oasis::mvrt()
   isright(v13);isright(v14);isright(v15);
   if(rt == 1)
   {
-    nstep = 0;
+    //nstep = 0;
     checkstep();
     revert4();
     return nstep;
@@ -716,29 +716,35 @@ void Oasis::sorthint()
   temp[0] = min(up,dn);
   temp[1] = min(lft,rt);
   temp2[0] = min(temp[0],temp[1]);
-  if(temp2[0] == up)
+  if(temp2[0] == up && up != 32652)
     movestring = "tile above the blank.";
-  if(temp2[0] == dn)
+  else if(temp2[0] == dn)
     movestring = "tile below the blank.";
-  if(temp2[0] == lft)
+  else if(temp2[0] == lft)
     movestring = "tile to the left of the blank.";
-  if(temp2[0] == rt)
+  else if(temp2[0] == rt)
     movestring = "tile to the right of the blank.";
 }
 void Oasis::fhint()
 {
-  up = mvup();
-  dn = mvdn();
-  lft = mvlft();
-  rt = mvrt();
-  sorthint();
+    up = mvup();
+    dn = mvdn();
+    lft = mvlft();
+    rt = mvrt();
+    sorthint();
+    ostringstream oss;
+    //oss << "You should click the " << movestring;
+    oss << "up "<<up<< " dn "<<dn<<" lft "<<lft<<" rt "<<rt;
+    hints.put(oss.str());
+    redraw();
+    up = 0; dn = 0; lft = 0; rt = 0;
+    nstep = 0;
+}
+void Oasis::hint_hider()
+{
   ostringstream oss;
-  oss << "You should click the " << movestring;
+  oss << "";
   hints.put(oss.str());
-  redraw();
-  up = 0; dn = 0; lft = 0; rt = 0;
-  nstep = 0;
-
 }
 
 //----------------------------------------------------------------------------//
@@ -760,6 +766,7 @@ void Oasis::move1()
     v1 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach1()
@@ -798,6 +805,7 @@ void Oasis::move2()
     v2 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach2()
@@ -836,6 +844,7 @@ void Oasis::move3()
     v3 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach3()
@@ -874,6 +883,7 @@ void Oasis::move4()
     v4 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach4()
@@ -912,6 +922,7 @@ void Oasis::move5()
     v5 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach5()
@@ -950,6 +961,7 @@ void Oasis::move6()
     v6 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach6()
@@ -988,6 +1000,7 @@ void Oasis::move7()
     v7 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach7()
@@ -1026,6 +1039,7 @@ void Oasis::move8()
     v8 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach8()
@@ -1064,6 +1078,7 @@ void Oasis::move9()
     v9 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach9()
@@ -1102,6 +1117,7 @@ void Oasis::move10()
     v10 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach10()
@@ -1140,6 +1156,7 @@ void Oasis::move11()
     v11 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach11()
@@ -1178,6 +1195,7 @@ void Oasis::move12()
     v12 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach12()
@@ -1216,6 +1234,7 @@ void Oasis::move13()
     v13 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach13()
@@ -1254,6 +1273,7 @@ void Oasis::move14()
     v14 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach14()
@@ -1292,6 +1312,7 @@ void Oasis::move15()
     v15 = v16;
     v16 = temp;
     movenum++;
+    hint_hider();
   }
 }
 void Oasis::attach15()
