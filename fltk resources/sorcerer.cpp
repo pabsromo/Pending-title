@@ -102,9 +102,9 @@ private:
   void step(vector<int> v1, vector<int> v2);
   void isabove(vector<int> v);void isbelow(vector<int> v);void isleft(vector<int> v);
   void isright(vector<int> v);void revert3();void revert4();
-  void switchover1(vector<int> v);void revert1();void checkstep();void revert2();
-  void switchover2(vector<int> v);void switchover3(vector<int> v);
-  void switchover4(vector<int> v);
+  void switchover1();void revert1();void checkstep();void revert2();
+  void switchover2();void switchover3();
+  void switchover4();
   void sorthint(); void hint_hider();
   //Background image
   //Image backgnd{Point(0,0),"manydots.jpg"};
@@ -474,112 +474,108 @@ void Oasis::checklevel()
 }
 void Oasis::step(vector<int> vec, vector<int> vecc)
 {
-  nstep = nstep + abs(vecc[0]-vec[0])/100;
-  nstep = nstep + abs(vecc[1]-vec[1])/100;
+  nstep = nstep + abs(vecc[0]-vec[0])/100; //x coordinate
+  nstep = nstep + abs(vecc[1]-vec[1])/100; //y coordinate
 }
 void Oasis::isabove(vector<int> v)
 {
   if((v16[0]==v[0]) && (v16[1]==v[1]+100) && up == 0)
   {
-    switchover1(v);
-    up = 1;
+    switchover1();
   }
 }
 void Oasis::isbelow(vector<int> v)
 {
   if((v16[0]==v[0]) && (v16[1]==v[1]-100) && dn == 0)
   {
-    switchover2(v);
-    dn = 1;
+    switchover2();
   }
 }
 void Oasis::isleft(vector<int> v)
 {
   if((v16[0]==v[0]+100) && (v16[1]==v[1]) && lft == 0)
   {
-    switchover3(v);
-    lft = 1;
+    switchover3();
   }
 }
 void Oasis::isright(vector<int> v)
 {
   if((v16[0]==v[0]-100) && (v16[1]==v[1]) && rt == 0)
   {
-    switchover4(v);
-    rt = 1;
+    switchover4();
   }
 }
-void Oasis::switchover1(vector<int> v)
+void Oasis::switchover1()
 {
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v1;upv = v16;v1 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v2;upv = v16;v2 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v3;upv = v16;v3 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v4;upv = v16;v4 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v5;upv = v16;v5 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v6;upv = v16;v6 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v7;upv = v16;v7 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v8;upv = v16;v8 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v9;upv = v16;v9 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v10;upv = v16;v10 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v11;upv = v16;v11 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v12;upv = v16;v12 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v13;upv = v16;v13 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v14;upv = v16;v14 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]+100)){temp = v15;upv = v16;v15 = v16;v16 = temp;}
+  if((v16[0]==v1[0]) && (v16[1]==v1[1]+100) && up == 0){temp = v1;upv = v16;v1 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v2[0]) && (v16[1]==v2[1]+100) && up == 0){temp = v2;upv = v16;v2 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v3[0]) && (v16[1]==v3[1]+100) && up == 0){temp = v3;upv = v16;v3 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v4[0]) && (v16[1]==v4[1]+100) && up == 0){temp = v4;upv = v16;v4 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v5[0]) && (v16[1]==v5[1]+100) && up == 0){temp = v5;upv = v16;v5 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v6[0]) && (v16[1]==v6[1]+100) && up == 0){temp = v6;upv = v16;v6 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v7[0]) && (v16[1]==v7[1]+100) && up == 0){temp = v7;upv = v16;v7 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v8[0]) && (v16[1]==v8[1]+100) && up == 0){temp = v8;upv = v16;v8 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v9[0]) && (v16[1]==v9[1]+100) && up == 0){temp = v9;upv = v16;v9 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v10[0]) && (v16[1]==v10[1]+100) && up == 0){temp = v10;upv = v16;v10 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v11[0]) && (v16[1]==v11[1]+100) && up == 0){temp = v11;upv = v16;v11 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v12[0]) && (v16[1]==v12[1]+100) && up == 0){temp = v12;upv = v16;v12 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v13[0]) && (v16[1]==v13[1]+100) && up == 0){temp = v13;upv = v16;v13 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v14[0]) && (v16[1]==v14[1]+100) && up == 0){temp = v14;upv = v16;v14 = v16;v16 = temp;up = 1;}
+  if((v16[0]==v15[0]) && (v16[1]==v15[1]+100) && up == 0){temp = v15;upv = v16;v15 = v16;v16 = temp;up = 1;}
 }
-void Oasis::switchover2(vector<int> v)
+void Oasis::switchover2()
 {
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v1;dnv = v16;v1 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v2;dnv = v16;v2 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v3;dnv = v16;v3 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v4;dnv = v16;v4 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v5;dnv = v16;v5 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v6;dnv = v16;v6 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v7;dnv = v16;v7 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v8;dnv = v16;v8 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v9;dnv = v16;v9 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v10;dnv = v16;v10 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v11;dnv = v16;v11 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v12;dnv = v16;v12 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v13;dnv = v16;v13 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v14;dnv = v16;v14 = v16;v16 = temp;}
-  if((v16[0]==v[0]) && (v16[1]==v[1]-100)){temp = v15;dnv = v16;v15 = v16;v16 = temp;}
+  if((v16[0]==v1[0]) && (v16[1]==v1[1]-100) && dn == 0){temp = v1;dnv = v16;v1 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v2[0]) && (v16[1]==v2[1]-100) && dn == 0){temp = v2;dnv = v16;v2 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v3[0]) && (v16[1]==v3[1]-100) && dn == 0){temp = v3;dnv = v16;v3 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v4[0]) && (v16[1]==v4[1]-100) && dn == 0){temp = v4;dnv = v16;v4 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v5[0]) && (v16[1]==v5[1]-100) && dn == 0){temp = v5;dnv = v16;v5 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v6[0]) && (v16[1]==v6[1]-100) && dn == 0){temp = v6;dnv = v16;v6 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v8[0]) && (v16[1]==v7[1]-100) && dn == 0){temp = v7;dnv = v16;v7 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v9[0]) && (v16[1]==v8[1]-100) && dn == 0){temp = v8;dnv = v16;v8 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v10[0]) && (v16[1]==v9[1]-100) && dn == 0){temp = v9;dnv = v16;v9 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v11[0]) && (v16[1]==v10[1]-100) && dn == 0){temp = v10;dnv = v16;v10 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v12[0]) && (v16[1]==v11[1]-100) && dn == 0){temp = v11;dnv = v16;v11 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v13[0]) && (v16[1]==v12[1]-100) && dn == 0){temp = v12;dnv = v16;v12 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v14[0]) && (v16[1]==v13[1]-100) && dn == 0){temp = v13;dnv = v16;v13 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v15[0]) && (v16[1]==v14[1]-100) && dn == 0){temp = v14;dnv = v16;v14 = v16;v16 = temp;dn = 1;}
+  if((v16[0]==v16[0]) && (v16[1]==v15[1]-100) && dn == 0){temp = v15;dnv = v16;v15 = v16;v16 = temp;dn = 1;}
 }
-void Oasis::switchover3(vector<int> v)
+void Oasis::switchover3()
 {
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v1;lftv = v16;v1 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v2;lftv = v16;v2 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v3;lftv = v16;v3 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v4;lftv = v16;v4 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v5;lftv = v16;v5 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v6;lftv = v16;v6 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v7;lftv = v16;v7 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v8;lftv = v16;v8 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v9;lftv = v16;v9 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v10;lftv = v16;v10 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v11;lftv = v16;v11 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v12;lftv = v16;v12 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v13;lftv = v16;v13 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v14;lftv = v16;v14 = v16;v16 = temp;}
-  if((v16[0]==v[0]+100) && (v16[1]==v[1])){temp = v15;lftv = v16;v15 = v16;v16 = temp;}
+  if((v16[0]==v1[0]+100) && (v16[1]==v1[1] && lft == 0)){temp = v1;lftv = v16;v1 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v2[0]+100) && (v16[1]==v2[1] && lft == 0)){temp = v2;lftv = v16;v2 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v3[0]+100) && (v16[1]==v3[1] && lft == 0)){temp = v3;lftv = v16;v3 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v4[0]+100) && (v16[1]==v4[1] && lft == 0)){temp = v4;lftv = v16;v4 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v5[0]+100) && (v16[1]==v5[1] && lft == 0)){temp = v5;lftv = v16;v5 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v6[0]+100) && (v16[1]==v6[1] && lft == 0)){temp = v6;lftv = v16;v6 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v7[0]+100) && (v16[1]==v7[1] && lft == 0)){temp = v7;lftv = v16;v7 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v8[0]+100) && (v16[1]==v8[1] && lft == 0)){temp = v8;lftv = v16;v8 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v9[0]+100) && (v16[1]==v9[1] && lft == 0)){temp = v9;lftv = v16;v9 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v10[0]+100) && (v16[1]==v10[1] && lft == 0)){temp = v10;lftv = v16;v10 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v11[0]+100) && (v16[1]==v11[1] && lft == 0)){temp = v11;lftv = v16;v11 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v12[0]+100) && (v16[1]==v12[1] && lft == 0)){temp = v12;lftv = v16;v12 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v13[0]+100) && (v16[1]==v13[1] && lft == 0)){temp = v13;lftv = v16;v13 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v14[0]+100) && (v16[1]==v14[1] && lft == 0)){temp = v14;lftv = v16;v14 = v16;v16 = temp;lft = 1;}
+  if((v16[0]==v15[0]+100) && (v16[1]==v15[1] && lft == 0)){temp = v15;lftv = v16;v15 = v16;v16 = temp;lft = 1;}
 }
-void Oasis::switchover4(vector<int> v)
+void Oasis::switchover4()
 {
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v1;rtv = v16;v1 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v2;rtv = v16;v2 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v3;rtv = v16;v3 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v4;rtv = v16;v4 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v5;rtv = v16;v5 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v6;rtv = v16;v6 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v7;rtv = v16;v7 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v8;rtv = v16;v8 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v9;rtv = v16;v9 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v10;rtv = v16;v10 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v11;rtv = v16;v11 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v12;rtv = v16;v12 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v13;rtv = v16;v13 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v14;rtv = v16;v14 = v16;v16 = temp;}
-  if((v16[0]==v[0]-100) && (v16[1]==v[1])){temp = v15;rtv = v16;v15 = v16;v16 = temp;}
+  if((v16[0]==v1[0]-100) && (v16[1]==v1[1] && rt == 0)){temp = v1;rtv = v16;v1 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v2[0]-100) && (v16[1]==v2[1] && rt == 0)){temp = v2;rtv = v16;v2 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v3[0]-100) && (v16[1]==v3[1] && rt == 0)){temp = v3;rtv = v16;v3 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v4[0]-100) && (v16[1]==v4[1] && rt == 0)){temp = v4;rtv = v16;v4 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v5[0]-100) && (v16[1]==v5[1] && rt == 0)){temp = v5;rtv = v16;v5 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v6[0]-100) && (v16[1]==v6[1] && rt == 0)){temp = v6;rtv = v16;v6 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v7[0]-100) && (v16[1]==v7[1] && rt == 0)){temp = v7;rtv = v16;v7 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v8[0]-100) && (v16[1]==v8[1] && rt == 0)){temp = v8;rtv = v16;v8 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v9[0]-100) && (v16[1]==v9[1] && rt == 0)){temp = v9;rtv = v16;v9 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v10[0]-100) && (v16[1]==v10[1] && rt == 0)){temp = v10;rtv = v16;v10 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v11[0]-100) && (v16[1]==v11[1] && rt == 0)){temp = v11;rtv = v16;v11 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v12[0]-100) && (v16[1]==v12[1] && rt == 0)){temp = v12;rtv = v16;v12 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v13[0]-100) && (v16[1]==v13[1] && rt == 0)){temp = v13;rtv = v16;v13 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v14[0]-100) && (v16[1]==v14[1] && rt == 0)){temp = v14;rtv = v16;v14 = v16;v16 = temp;rt = 1;}
+  if((v16[0]==v15[0]-100) && (v16[1]==v15[1] && rt == 0)){temp = v15;rtv = v16;v15 = v16;v16 = temp;rt = 1;}
 }
 void Oasis::revert1() //brings changed vectors back
 {
@@ -666,11 +662,10 @@ int Oasis::mvup()
   isabove(v13);isabove(v14);isabove(v15);
   if(up == 1)
   {
-    //nstep = 0;
     checkstep();
     revert1();
     return nstep;
-  } else return 80;
+  } else {/*revert1();*/return 300;}
 }
 int Oasis::mvdn()
 {
@@ -679,11 +674,10 @@ int Oasis::mvdn()
   isbelow(v13);isbelow(v14);isbelow(v15);
   if(dn == 1)
   {
-    //nstep = 0;
     checkstep();
     revert2();
     return nstep;
-  }
+  } else {/*revert2();*/return 300;}
 }
 int Oasis::mvlft()
 {
@@ -692,11 +686,10 @@ int Oasis::mvlft()
   isleft(v13);isleft(v14);isleft(v15);
   if(lft == 1)
   {
-    //nstep = 0;
     checkstep();
     revert3();
     return nstep;
-  }
+  } else {/*revert3();*/return 300;}
 }
 int Oasis::mvrt()
 {
@@ -705,18 +698,17 @@ int Oasis::mvrt()
   isright(v13);isright(v14);isright(v15);
   if(rt == 1)
   {
-    //nstep = 0;
     checkstep();
     revert4();
     return nstep;
-  }
+  } else {/*revert4();*/return 300;}
 }
 void Oasis::sorthint()
 {
   temp[0] = min(up,dn);
   temp[1] = min(lft,rt);
   temp2[0] = min(temp[0],temp[1]);
-  if(temp2[0] == up && up != 32652)
+  if(temp2[0] == up)
     movestring = "tile above the blank.";
   else if(temp2[0] == dn)
     movestring = "tile below the blank.";
@@ -727,18 +719,17 @@ void Oasis::sorthint()
 }
 void Oasis::fhint()
 {
-    up = mvup();
-    dn = mvdn();
-    lft = mvlft();
+    up = mvup(); nstep = 0;
+    dn = mvdn(); nstep = 0;
+    lft = mvlft(); nstep = 0;
     rt = mvrt();
     sorthint();
     ostringstream oss;
-    //oss << "You should click the " << movestring;
-    oss << "up "<<up<< " dn "<<dn<<" lft "<<lft<<" rt "<<rt;
+    oss << "You should click the " << movestring;
+    //oss << "up "<<up<< " dn "<<dn<<" lft "<<lft<<" rt "<<rt;
     hints.put(oss.str());
     redraw();
-    up = 0; dn = 0; lft = 0; rt = 0;
-    nstep = 0;
+    up = 0; dn = 0; lft = 0; rt = 0; nstep = 0;
 }
 void Oasis::hint_hider()
 {
