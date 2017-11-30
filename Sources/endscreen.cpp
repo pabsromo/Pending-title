@@ -62,7 +62,7 @@ void Endscreen_window::exit() {
 	button_pushed = true;
 	hide();
 }
-bool Endscreen_window_window::wait_for_button(){
+bool Endscreen_window::wait_for_button(){
 #if 1
     // Simpler handler
     while (!button_pushed) Fl::wait();
