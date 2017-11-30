@@ -27,14 +27,15 @@ try {
   if(win1.go == 1)
   {
     dwin.show();
+    dwin.wait_for_button();
+    if(dwin.difficultyLevel != 0)
+    {
+      gwin.diffLev = dwin.difficultyLevel;
+      gwin.checklevel();
+      gwin.show();
+    }
   }
-  dwin.wait_for_button();
-  if(dwin.difficultyLevel != 0)
-  {
-    gwin.diffLev = dwin.difficultyLevel;
-    gwin.checklevel();
-    gwin.show();
-  }
+
   return gui_main();
 }
 catch(exception& e) {
