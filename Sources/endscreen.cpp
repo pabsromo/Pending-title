@@ -26,7 +26,8 @@ private: // initialize buttons and in box
 	Text fourth;
 	Text fifth;
 	Text current;
-	gogogo = 0;
+	button_pushed = false;
+	int gogogo = 0;
 	void replay();
 	void exit();
 };
