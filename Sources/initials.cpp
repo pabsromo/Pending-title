@@ -1,6 +1,5 @@
 // initials.cpp
 
-#include "fltk.h"
 #include "Graph.h"
 #include "GUI.h"
 #include "Point.h"
@@ -43,6 +42,7 @@ Initials_window::Initials_window(Point xy, int w, int h, const string& title) //
 	
 void Initials_window::exit() {
 	// hide closes the program
+	button_pushed = true;
 	hide();
 }
 
@@ -56,6 +56,7 @@ void Initials_window::enter() {
 
 void Initials_window::clear() {
 	// redraws page to clear any previous inputs
+	button_pushed = true;
 	redraw();
 }
 bool Initials_window::wait_for_button()
