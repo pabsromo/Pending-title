@@ -1,5 +1,8 @@
-#include "std_lib_facilities_5.h"
+//This is the class responsible for the gameplay mechanic. In it the hint is
+//calulated and the outputs for the number of tiles in the wrong spot as well
+//as the number of moves remaining.
 
+#include "std_lib_facilities_5.h"
 #include "Graph.h"
 #include "FL/Fl_JPEG_Image.H"
 #include "Point.h"
@@ -112,8 +115,6 @@ struct Oasis : Graph_lib::Window
     void lev_1_2();void lev_1_3();void lev_1_4();void lev_2_1();void lev_2_2();
     void lev_2_3();void lev_2_4();void lev_3_1();void lev_3_2();void lev_3_3();
     void lev_3_4();void lev_4_1();void lev_4_2();void lev_4_3();void lev_4_4();
-    //Background image
-    //Image backgnd{Point(0,0),"manydots.jpg"};
 
     //Colors
     Color grey;
@@ -141,13 +142,14 @@ struct Oasis : Graph_lib::Window
     bH(Point(200, 550), 50, 20, "Hint", hinter),
   	r16(Point(350, 350), 100, 100),
   	rb(Point(40, 40), 420, 420),
-    clocstr(Point(200,500),50,20,"Tiles not in right spot:"),
+    clocstr(Point(200,500),50,20,"Tiles not in right spot:"), ..
     remain(Point(200,525),50,20,"Remaining moves:"),
     hints(Point(100,600),300,20, ""),
 
   	grey(fl_rgb_color(128, 128, 128)),
 
-  	red1{ Point(50, 50),"15 Puzzle Tile Images/Red 1-15/Red1Tile.jpg" },              //These are the Red Tile creations
+    //These are the Red Tile creations
+  	red1{ Point(50, 50),"15 Puzzle Tile Images/Red 1-15/Red1Tile.jpg" },
   	red2{ Point(150, 50),"15 Puzzle Tile Images/Red 1-15/Red2Tile.jpg" },
   	red3{ Point(250, 50),"15 Puzzle Tile Images/Red 1-15/Red3Tile.jpg" },
   	red4{ Point(350, 50),"15 Puzzle Tile Images/Red 1-15/Red4Tile.jpg" },
@@ -163,7 +165,8 @@ struct Oasis : Graph_lib::Window
   	red14{ Point(150, 350),"15 Puzzle Tile Images/Red 1-15/Red14Tile.jpg" },
   	red15{ Point(250, 350),"15 Puzzle Tile Images/Red 1-15/Red15Tile.jpg" },
 
-  	green1{ Point(50, 50),"15 Puzzle Tile Images/Green 1-15/Green1Tile.jpg" },              //These are the Green Tile creations
+    //These are the Green Tile creations
+  	green1{ Point(50, 50),"15 Puzzle Tile Images/Green 1-15/Green1Tile.jpg" },
   	green2{ Point(150, 50),"15 Puzzle Tile Images/Green 1-15/Green2Tile.jpg" },
   	green3{ Point(250, 50),"15 Puzzle Tile Images/Green 1-15/Green3Tile.jpg" },
   	green4{ Point(350, 50),"15 Puzzle Tile Images/Green 1-15/Green4Tile.jpg" },
@@ -181,7 +184,6 @@ struct Oasis : Graph_lib::Window
 
   {
       //All attachments
-      //attach(backgnd);
       attach(clocstr);
       attach(remain);
       attach(rb); rb.set_fill_color(grey);attach(hints);
@@ -189,8 +191,12 @@ struct Oasis : Graph_lib::Window
       attach(b7);attach(b8);attach(b9);attach(b10);attach(b11);attach(b12);
       attach(b13);attach(b14);attach(b15);attach(bH);
       //Except r16. That is the invisible "empty" spot
+
+      //
       s1 = true;s2 = true;s3=true;s4=true;s5=true;s6=true;s7=true;s8=true;
       s9=true;s10=true;s11=true;s12=true;s13=true;s14=true;s15=true;
+
+      //for random number with the selecting of the game configurations
       srand((int)time(0));
     	while(i < 30) {
     		randi.push_back((rand() % 4) + 1);
@@ -270,6 +276,8 @@ struct Oasis : Graph_lib::Window
   //------------------------------------------------------------------------------
 
   //Functions//
+
+  //Output function
   void Oasis::outs()
   {
     ostringstream oss;
@@ -280,11 +288,18 @@ struct Oasis : Graph_lib::Window
     remain.put(oss2.str());
     redraw();
   }
+
+  //Determines when the game needs to end
   void Oasis::closer()
   {
-    if(movenum > maxmove)
+    if(movenum > maxmove) //after maxmove moves it ends the game
       hide();
   }
+
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+  //Refreshing functions for the placement of the tiles with the given difficulty
   void Oasis::placer(vector<int> v, vector<int> ov)
   {
     mvx[0] = v[0] - ov[0];
@@ -705,39 +720,46 @@ struct Oasis : Graph_lib::Window
     placer15();
     outs();
   }
+
+//----------------------------------------------------------------------------//
+//----------------------------------------------------------------------------//
+
+  //These functions determine what the hint should be
   void Oasis::step(vector<int> vec, vector<int> vecc)
   {
     nstep = nstep + abs(vecc[0]-vec[0])/100; //x coordinate
     nstep = nstep + abs(vecc[1]-vec[1])/100; //y coordinate
   }
-  void Oasis::isabove(vector<int> v)
+  void Oasis::isabove(vector<int> v) //finds manhattan distance for tile above blank
   {
     if((v16[0]==v[0]) && (v16[1]==v[1]+100) && up == 0)
     {
       switchover1();
     }
   }
-  void Oasis::isbelow(vector<int> v)
+  void Oasis::isbelow(vector<int> v) //finds manhattan distance for tile below blank
   {
     if((v16[0]==v[0]) && (v16[1]==v[1]-100) && dn == 0)
     {
       switchover2();
     }
   }
-  void Oasis::isleft(vector<int> v)
+  void Oasis::isleft(vector<int> v) //finds manhattan distance for tile left of blank
   {
     if((v16[0]==v[0]+100) && (v16[1]==v[1]) && lft == 0)
     {
       switchover3();
     }
   }
-  void Oasis::isright(vector<int> v)
+  void Oasis::isright(vector<int> v) //finds manhattan distance for tile right of blank
   {
     if((v16[0]==v[0]-100) && (v16[1]==v[1]) && rt == 0)
     {
       switchover4();
     }
   }
+
+  //Switchover functions momentarily switch the coordinates with the found tile
   void Oasis::switchover1()
   {
     if((v16[0]==v1[0]) && (v16[1]==v1[1]+100) && up == 0){temp = v1;upv = v16;v1 = v16;v16 = temp;up = 1;}
@@ -810,6 +832,8 @@ struct Oasis : Graph_lib::Window
     if((v16[0]==v14[0]-100) && (v16[1]==v14[1] && rt == 0)){temp = v14;rtv = v16;v14 = v16;v16 = temp;rt = 1;}
     if((v16[0]==v15[0]-100) && (v16[1]==v15[1] && rt == 0)){temp = v15;rtv = v16;v15 = v16;v16 = temp;rt = 1;}
   }
+
+  //Revert functions revert the switched vectors from the switchover functions
   void Oasis::revert1() //brings changed vectors back
   {
     if(v1 == upv){v1 = temp;v16 = upv;}
@@ -882,12 +906,15 @@ struct Oasis : Graph_lib::Window
     if(v14 == rtv){v14 = temp;v16 = rtv;}
     if(v15 == rtv){v15 = temp;v16 = rtv;}
   }
-  void Oasis::checkstep()
+  void Oasis::checkstep() //finds the manhattan distance with the individual
+                          //steps of each tile with the step function
   {
     step(v1,OGv1);step(v2,OGv2);step(v3,OGv3);step(v4,OGv4);step(v5,OGv5);step(v6,OGv6);
     step(v7,OGv7);step(v8,OGv8);step(v9,OGv9);step(v10,OGv10);step(v11,OGv11);
     step(v12,OGv12);step(v13,OGv13);step(v14,OGv14);step(v15,OGv15);
   }
+
+  //Moving functions for the tiles and finding their manhattan distance
   int Oasis::mvup()
   {
     isabove(v1);isabove(v2);isabove(v3);isabove(v4);isabove(v5);isabove(v6);
@@ -898,7 +925,7 @@ struct Oasis : Graph_lib::Window
       checkstep();
       revert1();
       return nstep;
-    } else {/*revert1();*/return 300;}
+    } else {return 300;}
   }
   int Oasis::mvdn()
   {
@@ -910,7 +937,7 @@ struct Oasis : Graph_lib::Window
       checkstep();
       revert2();
       return nstep;
-    } else {/*revert2();*/return 300;}
+    } else {return 300;}
   }
   int Oasis::mvlft()
   {
@@ -922,7 +949,7 @@ struct Oasis : Graph_lib::Window
       checkstep();
       revert3();
       return nstep;
-    } else {/*revert3();*/return 300;}
+    } else {return 300;}
   }
   int Oasis::mvrt()
   {
@@ -934,9 +961,9 @@ struct Oasis : Graph_lib::Window
       checkstep();
       revert4();
       return nstep;
-    } else {/*revert4();*/return 300;}
+    } else {return 300;}
   }
-  void Oasis::sorthint()
+  void Oasis::sorthint() //finds the minimum manhattan distance
   {
     temp[0] = min(up,dn);
     temp[1] = min(lft,rt);
@@ -950,7 +977,8 @@ struct Oasis : Graph_lib::Window
     else if(temp2[0] == rt)
       movestring = "tile to the right of the blank.";
   }
-  void Oasis::fhint()
+  void Oasis::fhint() //allocates all of the steps for finding the minimum manhattan
+                      //distance and then outputs the hint
   {
       up = mvup(); nstep = 0;
       dn = mvdn(); nstep = 0;
@@ -974,7 +1002,12 @@ struct Oasis : Graph_lib::Window
   //----------------------------------------------------------------------------//
   //----------------------------------------------------------------------------//
 
-  void Oasis::move1()
+
+//For these functions the move and attach do as they say. They move that specific
+//tile and then attach the correct color of the tile. the f[] functions
+//(f1 for example) simply allocate the output function for the number of moves
+//left and the tiles in the wrong place along with the move and attach functions.
+ void Oasis::move1()
   {
     if(((((v16[0]==v1[0]-100)||(v16[0]==v1[0]+100))&&(v16[1]==v1[1])))
     ||((((v16[1]==v1[1]-100)||(v16[1]==v1[1]+100))&&(v16[0]==v1[0])))){

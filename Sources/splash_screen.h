@@ -1,6 +1,4 @@
-//Austin Offill
-//CSCE 121-518
-//
+
 
 #ifndef SIMPLE_WINDOW_GUARD
 #define SIMPLE_WINDOW_GUARD 1
@@ -18,6 +16,7 @@ struct Simple_window : Graph_lib::Window {
     bool wait_for_button();
 
 private:
+	//frames for animation
 	Image pic01;
 	Image pic02;
 	Image pic03;
@@ -30,6 +29,7 @@ private:
 	Image pic10;
 	Image pic11;
 	Image pic12;
+	//initalizing vars and objects
 	int i;
 	double t;
 	Rectangle r1;

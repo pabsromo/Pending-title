@@ -1,6 +1,4 @@
-//Austin Offill
-//CSCE 121-518
-//
+
 
 #include "splash_screen.h"
 #include "rules.cpp"
@@ -42,15 +40,16 @@ Simple_window::Simple_window(Point xy, int w, int h, const string& title) :
 	team_mems(Point(0,40),"Pablo Romo, Austin Offill, Mason Stacker, Clark Snider"),
 	game_name(Point((x_max() / 2) - 20,15),"Serepico")
 {
+	//text for above the animation
 	attach(team_mems);
 	attach(team_name);
 	attach(game_name);
 	attach(pic01);
 	
-	attach(tquit);
+	attach(tquit);//text for buttons
 	attach(tstart);
 
-	attach(r1);
+	attach(r1);//button markers
 	attach(r2);
 	r1.set_fill_color(Color::white);
 	r2.set_fill_color(Color::white);
@@ -72,6 +71,7 @@ bool Simple_window::wait_for_button()
 		detach(r2);
 		detach(tquit);
 		detach(tstart);
+		//switches frame based on howmany times through
 		if (i == 1) {
 			attach(pic02);
 			detach(pic01);
@@ -161,15 +161,15 @@ bool Simple_window::wait_for_button()
 			detach(pic02);
 			i = 0;
 		}
-
+		//attaches button rectangles on top
 		attach(r1);
 		attach(r2);
 		attach(tquit);
 		attach(tstart);
-		++i;
-		Fl::redraw();
+		++i;//frame animation should be on
+		Fl::redraw();//desplays movement
 		Fl::wait(t);
-		sleep_for(seconds(1));
+		sleep_for(seconds(1));//makes a full second between animations
 		
 
 	}
@@ -200,7 +200,7 @@ void Simple_window::next()
 {
     button_pushed = true;
     hide();
-	Rule_window win2(Point(100, 200), 720, 400, "Objective");
+	Rule_window win2(Point(100, 200), 720, 400, "Objective");//runs next window
 	win2.wait_for_button();
 }
 

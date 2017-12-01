@@ -1,6 +1,4 @@
-//Austin Offill
-//CSCE 121-518
-//
+
 
 #include "rules.h"
 #include "difficulty.cpp"
@@ -16,7 +14,7 @@ Rule_window::Rule_window(Point xy, int w, int h, const string& title) :
 	button_pushed(false),
 	rules(Point(0, 50), "The object of the puzzle is to place the tiles in order by making sliding moves that use the empty space."),
 	leaders(Point(5, 65), "Leaderboard"),
-	s1(Point(5, 80), Assignleader1()),
+	s1(Point(5, 80), Assignleader1()),//assigns leaderbord positions
 	s2(Point(5, 95), Assignleader2()),
 	s3(Point(5, 110), Assignleader3()),
 	s4(Point(5, 125), Assignleader4()),
@@ -24,7 +22,7 @@ Rule_window::Rule_window(Point xy, int w, int h, const string& title) :
 	diff(2)
 
 {
-	
+	//attach text and buttons
 	attach(rules);
 	attach(s1);
 	attach(s2);
@@ -85,6 +83,7 @@ void Rule_window::quit()
 }
 
 //------------------------------------------------------------------------------
+//selects text files for scores
 string Rule_window::returnScoresTxt(int diffLevel) {
 	string ScoresTxt;
 	if (diffLevel == 1) { ScoresTxt = "ScoresDiff1.txt"; }
@@ -94,7 +93,7 @@ string Rule_window::returnScoresTxt(int diffLevel) {
 
 	return ScoresTxt;
 }
-
+//selects text files for scores
 string Rule_window::returnInitTxt(int diffLevel) {
 	string initialTxt;
 	if (diffLevel == 1) { initialTxt = "InitialsDiff1.txt"; }
@@ -104,10 +103,10 @@ string Rule_window::returnInitTxt(int diffLevel) {
 
 	return initialTxt;
 }
-
+//stores text fiels
 vector<int> Rule_window::sortScoreVector() {
 	string ScoresTxt = returnScoresTxt(diff);
-	ifstream Highscores{ ScoresTxt }; //if (!Highscores) error("can't open input file ", ScoresTxt);
+	ifstream Highscores{ ScoresTxt }; if (!Highscores) error("can't open input file ", ScoresTxt);
 	int iterationSwitches; int tempScore; vector<int> Scoresv; int Score;
 	while (Highscores >> Score) { Scoresv.push_back(Score); }
 	do {
@@ -124,11 +123,11 @@ vector<int> Rule_window::sortScoreVector() {
 	} while (iterationSwitches != 0);
 	return Scoresv;
 }
-
+//sorts vectors from txt
 vector<string> Rule_window::sortInitialVector() {
 	string ScoresTxt = Rule_window::returnScoresTxt(diff); string InitialTxt = Rule_window::returnInitTxt(diff);
-	ifstream Highscores{ ScoresTxt }; //if (!Highscores) error("can't open input file ", ScoresTxt);
-	ifstream initialScores{ InitialTxt };// if (!initialScores) error("can't open input file ", InitialTxt);
+	ifstream Highscores{ ScoresTxt }; if (!Highscores) error("can't open input file ", ScoresTxt);
+	ifstream initialScores{ InitialTxt }; if (!initialScores) error("can't open input file ", InitialTxt);
 
 	int iterationSwitches; int tempScore; string tempString; vector<string> Initialsv; string Initial; vector<int> Scoresv;
 	while (initialScores >> Initial) { Initialsv.push_back(Initial); }
@@ -149,7 +148,7 @@ vector<string> Rule_window::sortInitialVector() {
 	} while (iterationSwitches != 0);
 	return Initialsv;
 }
-
+//the rest assighn value for score
 string Rule_window::AssignLeader1() {
 	vector<string> Initialsv = sortInitialVector();
 	vector<int> Scoresv = sortScoreVector();

@@ -1,11 +1,11 @@
 // DIFFICULTY LEVEL WINDOW
+
 #include "Graph.h"
 #include "GUI.h"
 #include "Point.h"
 #include "std_lib_facilities_5.h"
 #include "Window.h"
 #include "FL/Fl_JPEG_Image.H"
-//#include "sorcerer.cpp"
 #include "initials.cpp"
 
 using namespace Graph_lib;
@@ -14,7 +14,8 @@ struct Difficulty_window : Graph_lib::Window {
 	Difficulty_window(Point xy, int w, int h, const string& title);
 	void wait_for_button()
 		{
-		while (!button_pushed) Fl::wait(); // Wait for one of the buttons to be pressed before exiting the window
+			// Wait for one of the buttons to be pressed before exiting the window
+		while (!button_pushed) Fl::wait();
 			button_pushed = false;
 			hide();
 		};
@@ -46,6 +47,7 @@ Difficulty_window::Difficulty_window(Point xy, int w, int h, const string& title
 	quit_button{ Point{ x_max() - 70,0 }, 70, 20, "Quit", [](Address, Address pw) {reference_to<Difficulty_window>(pw).quit(); } },
 	prompt{ Point{ 185,50 }, "Select a Difficulty!" }
 {
+	//attaching the difficulty selection buttons
 	attach(diff1_button);
 	attach(diff2_button);
 	attach(diff3_button);
@@ -54,17 +56,19 @@ Difficulty_window::Difficulty_window(Point xy, int w, int h, const string& title
 	attach(prompt);
 }
 
+//hides the window to quit
 void Difficulty_window::quit() {
 	hide();
 }
+
+//The difficulty windows give the next window the difficulty level to be then
+//used with the sorcerer.cpp class Oasis in order to display the correct game
 void Difficulty_window::diff1() {
 	difficultyLevel = 1;
 	button_pushed = true;
 	hide();
 	Initials_window win4 (Point(100,100), 500,700, "Enter your initials");
 	win4.diff = 1;
-	//Oasis win4(Point(0, 0), 500, 700, "Main Game",1);
-	//win4.checklevel();
 	win4.wait_for_button();
 }
 void Difficulty_window::diff2() {
@@ -73,8 +77,6 @@ void Difficulty_window::diff2() {
 	hide();
 	Initials_window win4(Point(100, 100), 500, 700, "Enter your initials");
 	win4.diff = 2;
-	//Oasis win4(Point(0, 0), 500, 700, "Main Game", 2);
-	//win4.checklevel();
 	win4.wait_for_button();
 }
 void Difficulty_window::diff3() {
@@ -83,8 +85,6 @@ void Difficulty_window::diff3() {
 	hide();
 	Initials_window win4(Point(100, 100), 500, 700, "Enter your initials");
 	win4.diff = 3;
-	//Oasis win4(Point(0, 0), 500, 700, "Main Game", 3);
-	//win4.checklevel();
 	win4.wait_for_button();
 }
 void Difficulty_window::diff4() {
@@ -93,7 +93,5 @@ void Difficulty_window::diff4() {
 	hide();
 	Initials_window win4(Point(100, 100), 500, 700, "Enter your initials");
 	win4.diff = 4;
-	//Oasis win4(Point(0, 0), 500, 700, "Main Game", 4);
-	//win4.checklevel();
 	win4.wait_for_button();
 }
