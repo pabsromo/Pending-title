@@ -2,8 +2,8 @@
 //CSCE 121-518
 //
 
-#include "rules.h"
 #include "splash_screen.h"
+#include "rules.cpp"
 #include <chrono>
 #include <thread>
 
@@ -200,7 +200,7 @@ void Simple_window::next()
 {
     button_pushed = true;
     hide();
-	Rule_window win2(Point(100, 200), 720, 100, "Objective");
+	Rule_window win2(Point(100, 200), 720, 400, "Objective");
 	win2.wait_for_button();
 }
 

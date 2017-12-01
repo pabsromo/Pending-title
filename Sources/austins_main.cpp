@@ -5,8 +5,7 @@
 //
 
 #include "std_lib_facilities_5.h"
-#include "splash_screen.h"
-#include "rules.h"
+#include "splash_screen.cpp"
 #include "Graph.h"
 #include "FL/Fl_JPEG_Image.H"
 
