@@ -19,7 +19,7 @@ struct Endscreen_window: Graph_lib:: Window{  // window opens if no remaining mo
 	int correct_tiles;
 	int diff;
 private: // initialize buttons and in box
-	
+
 	Button replay_button;
 	Button exit_button;
 	Text first;
@@ -28,11 +28,12 @@ private: // initialize buttons and in box
 	Text fourth;
 	Text fifth;
 	Text current;
+	Out_box box_1, box_2, box_3, box_4, box_5;
 	bool button_pushed = false;
-	
+
 	void replay();
 	void exit();
-	
+
 };
 
 Endscreen_window::Endscreen_window(Point xy, int w, int h, const string& title) // initialize the buttons' locations and callbacks
@@ -44,8 +45,13 @@ Endscreen_window::Endscreen_window(Point xy, int w, int h, const string& title) 
 	third  {Point{ 100,200 }, score_three},
 	fourth {Point{ 100,275 }, score_four},
 	fifth  {Point{ 100,350 }, score_five},
-	current{Point{ 100,425 }, score_six}
-	
+	current{Point{ 100,425 }, score_six},
+	box_1(Point(100,50),100,20,""),
+	box_2(Point(100,125),100,20,""),
+	box_3(Point(100,200),100,20,""),
+	box_4(Point(100,275),100,20,""),
+	box_5(Point(100,350),100,20,"")
+
 	{
 	// attach each widget
 	attach(replay_button);
@@ -55,9 +61,26 @@ Endscreen_window::Endscreen_window(Point xy, int w, int h, const string& title) 
 	attach(third);
 	attach(fourth);
 	attach(fifth);
-	attach(current);
-	}	
-	
+	attach(box_1);
+	attach(box_2);
+	attach(box_3);
+	attach(box_4);
+	attach(box_5);
+
+	ostringstream oss1,oss2,oss3,oss4,oss5;
+  oss1 << "QJB - 960";
+	oss2 << "PBG - 720";
+	oss3 << "TLG - 480";
+	oss4 << "AJO - 24";
+	oss5 << "PXR - 140";
+  box_1.put(oss1.str());
+  box_2.put(oss2.str());
+	box_3.put(oss3.str());
+	box_4.put(oss4.str());
+	box_5.put(oss5.str());
+  redraw();
+	}
+
 void Endscreen_window::replay() {
 	// This function needs to restart the program from the first window
 	button_pushed = true;
