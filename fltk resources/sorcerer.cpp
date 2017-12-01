@@ -5,6 +5,8 @@
 #include "Point.h"
 #include "Window.h"
 #include <vector>
+#include <cstdlib>
+#include <ctime>
 
 using namespace Graph_lib;
 using namespace std;
@@ -27,6 +29,8 @@ private:
   //bools
   bool s1,s2,s3,s4,s5,s6,s7,s8,s9,s10,s11,s12,s13,s14,s15;
   int nstep = 0;
+  vector<int> randi;
+  int i = 0;
 
   //Definitions of vector point pairs
   vector<int> v1 = {50,50};vector<int> v2 = {150,50};vector<int> v3 = {250,50};
@@ -106,6 +110,10 @@ private:
   void switchover2();void switchover3();
   void switchover4();
   void sorthint(); void hint_hider();
+  void iflev1();void iflev2();void iflev3();void iflev4();void lev_1_1();
+  void lev_1_2();void lev_1_3();void lev_1_4();void lev_2_1();void lev_2_2();
+  void lev_2_3();void lev_2_4();void lev_3_1();void lev_3_2();void lev_3_3();
+  void lev_3_4();void lev_4_1();void lev_4_2();void lev_4_3();void lev_4_4();
   //Background image
   //Image backgnd{Point(0,0),"manydots.jpg"};
 
@@ -185,6 +193,12 @@ Oasis::Oasis(Point xy, int w, int h, const string& title) :
     //Except r16. That is the invisible "empty" spot
     s1 = true;s2 = true;s3=true;s4=true;s5=true;s6=true;s7=true;s8=true;
     s9=true;s10=true;s11=true;s12=true;s13=true;s14=true;s15=true;
+    srand((int)time(0));
+  	while(i < 30) {
+  		randi.push_back((rand() % 4) + 1);
+      i++;
+  	}
+    i = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -284,7 +298,6 @@ void Oasis::placer1()
   b1.move(mvx[0],mvy[1]);
   red1.move(mvx[0], mvy[1]);
   green1.move(mvx[0], mvy[1]);
-  //step(v1,OGv1);
   attach1();
 }
 void Oasis::placer2()
@@ -293,7 +306,6 @@ void Oasis::placer2()
   b2.move(mvx[0],mvy[1]);
   red2.move(mvx[0], mvy[1]);
   green2.move(mvx[0], mvy[1]);
-  //step(v2,OGv2);
   attach2();
 }
 void Oasis::placer3()
@@ -302,7 +314,6 @@ void Oasis::placer3()
   b3.move(mvx[0],mvy[1]);
   red3.move(mvx[0], mvy[1]);
   green3.move(mvx[0], mvy[1]);
-  //step(v3,OGv3);
   attach3();
 }
 void Oasis::placer4()
@@ -311,7 +322,6 @@ void Oasis::placer4()
   b4.move(mvx[0],mvy[1]);
   red4.move(mvx[0], mvy[1]);
   green4.move(mvx[0], mvy[1]);
-  //step(v4,OGv4);
   attach4();
 }
 void Oasis::placer5()
@@ -320,7 +330,6 @@ void Oasis::placer5()
   b5.move(mvx[0],mvy[1]);
   red5.move(mvx[0], mvy[1]);
   green5.move(mvx[0], mvy[1]);
-  //step(v4,OGv5);
   attach5();
 }
 void Oasis::placer6()
@@ -329,7 +338,6 @@ void Oasis::placer6()
   b6.move(mvx[0],mvy[1]);
   red6.move(mvx[0], mvy[1]);
   green6.move(mvx[0], mvy[1]);
-  //step(v6,OGv6);
   attach6();
 }
 void Oasis::placer7()
@@ -338,7 +346,6 @@ void Oasis::placer7()
   b7.move(mvx[0],mvy[1]);
   red7.move(mvx[0], mvy[1]);
   green7.move(mvx[0], mvy[1]);
-  //step(v7,OGv7);
   attach7();
 }
 void Oasis::placer8()
@@ -347,7 +354,6 @@ void Oasis::placer8()
   b8.move(mvx[0],mvy[1]);
   red8.move(mvx[0], mvy[1]);
   green8.move(mvx[0], mvy[1]);
-  //step(v8,OGv8);
   attach8();
 }
 void Oasis::placer9()
@@ -356,7 +362,6 @@ void Oasis::placer9()
   b9.move(mvx[0],mvy[1]);
   red9.move(mvx[0], mvy[1]);
   green9.move(mvx[0], mvy[1]);
-  //step(v9,OGv9);
   attach9();
 }
 void Oasis::placer10()
@@ -365,7 +370,6 @@ void Oasis::placer10()
   b10.move(mvx[0],mvy[1]);
   red10.move(mvx[0], mvy[1]);
   green10.move(mvx[0], mvy[1]);
-  //step(v10,OGv10);
   attach10();
 }
 void Oasis::placer11()
@@ -374,7 +378,6 @@ void Oasis::placer11()
   b11.move(mvx[0],mvy[1]);
   red11.move(mvx[0], mvy[1]);
   green11.move(mvx[0], mvy[1]);
-  //step(v11,OGv11);
   attach11();
 }
 void Oasis::placer12()
@@ -383,7 +386,6 @@ void Oasis::placer12()
   b12.move(mvx[0],mvy[1]);
   red12.move(mvx[0], mvy[1]);
   green12.move(mvx[0], mvy[1]);
-  //step(v12,OGv12);
   attach12();
 }
 void Oasis::placer13()
@@ -392,7 +394,6 @@ void Oasis::placer13()
   b13.move(mvx[0],mvy[1]);
   red13.move(mvx[0], mvy[1]);
   green13.move(mvx[0], mvy[1]);
-  //step(v13,OGv13);
   attach13();
 }
 void Oasis::placer14()
@@ -401,7 +402,6 @@ void Oasis::placer14()
   b14.move(mvx[0],mvy[1]);
   red14.move(mvx[0], mvy[1]);
   green14.move(mvx[0], mvy[1]);
-  //step(v14,OGv14);
   attach14();
 }
 void Oasis::placer15()
@@ -410,47 +410,282 @@ void Oasis::placer15()
   b15.move(mvx[0],mvy[1]);
   red15.move(mvx[0], mvy[1]);
   green15.move(mvx[0], mvy[1]);
-  //step(v15,OGv15);
   attach15();
 }
 void Oasis::levels()
 {
+  iflev1();
+  iflev2();
+  iflev3();
+  iflev4();
+}
+void Oasis::iflev1()
+{
   if(diffLev == 1)
   {
-    v1 = {50,50};v2 = {150,50};v3 = {250,50};
-    v4 = {350,50};v5 = {50,150};v6 = {150,150};
-    v7 = {350,150};v8 = {250,350};v9 = {50,250};
-    v10 = {150,250};v11 = {350,350};v12 = {250,150};
-    v13 = {50,350};v14 = {150,350};v15 = {350,250};
-    v16 = {250,250};cloc=10;
+    if(randi[i] == 1)
+    {
+      lev_1_1();
+      maxmove = 10;
+    }
+    else if(randi[i] == 2)
+    {
+      lev_1_2();
+      maxmove = 10;
+    }
+    else if(randi[i] == 3)
+    {
+      lev_1_3();
+      maxmove = 10;
+    }
+    else if(randi[i] == 4)
+    {
+      lev_1_4();
+      maxmove = 10;
+    }
+    else
+    {
+      lev_1_1();
+      maxmove = 10;
+    }
   }
-  else if(diffLev == 2)
+}
+void Oasis::iflev2()
+{
+  if(diffLev == 2)
   {
-    v1 = {50,50};v2 = {250,150};v3 = {250,50};
-    v4 = {350,50};v5 = {50,150};v6 = {150,50};
-    v7 = {350,250};v8 = {350,350};v9 = {50,250};
-    v10 = {150,250};v11 = {350,150};v12 = {250,350};
-    v13 = {50,350};v14 = {250,250};v15 = {150,350};
-    v16 = {150,150};cloc=7;
+    if(randi[i] == 1)
+    {
+      lev_2_1();
+      maxmove = 20;
+    }
+    else if(randi[i] == 2)
+    {
+      lev_2_2();
+      maxmove = 20;
+    }
+    else if(randi[i] == 3)
+    {
+      lev_2_3();
+      maxmove = 20;
+    }
+    else if(randi[i] == 4)
+    {
+      lev_2_4();
+      maxmove = 20;
+    }
+    else
+    {
+      lev_2_1();
+      maxmove = 20;
+    }
   }
-  else if(diffLev == 3)
+}
+void Oasis::iflev3()
+{
+  if(diffLev == 3)
   {
-    v1 = {250,250};v2 = {150,250};v3 = {50,150};
-    v4 = {50,50};v5 = {250,350};v6 = {350,350};
-    v7 = {250,150};v8 = {150,50};v9 = {50,250};
-    v10 = {350,250};v11 = {350,150};v12 = {250,50};
-    v13 = {50,350};v14 = {150,350};v15 = {350,50};
-    v16 = {150,150};cloc=4;
+    if(randi[i] == 1)
+    {
+      lev_3_1();
+      maxmove = 40;
+    }
+    else if(randi[i] == 2)
+    {
+      lev_3_2();
+      maxmove = 40;
+    }
+    else if(randi[i] == 3)
+    {
+      lev_3_3();
+      maxmove = 40;
+    }
+    else if(randi[i] == 4)
+    {
+      lev_3_4();
+      maxmove = 40;
+    }
+    else
+    {
+      lev_3_1();
+      maxmove = 40;
+    }
   }
-  else if(diffLev == 4)
+}
+void Oasis::iflev4()
+{
+  if(diffLev == 4)
   {
-    v1 = {350,350};v2 = {350,250};v3 = {50,250};
-    v4 = {50,350};v5 = {250,350};v6 = {250,250};
-    v7 = {150,250};v8 = {150,350};v9 = {350,150};
-    v10 = {250,150};v11 = {250,50};v12 = {150,50};
-    v13 = {350,50};v14 = {150,150};v15 = {50,150};
-    v16 = {50,50};
+    if(randi[i] == 1)
+    {
+      lev_4_4();
+      maxmove = 80;
+    }
+    else if(randi[i] == 2)
+    {
+      lev_4_4();
+      maxmove = 80;
+    }
+    else if(randi[i] == 3)
+    {
+      lev_4_4();
+      maxmove = 80;
+    }
+    else if(randi[i] == 4)
+    {
+      lev_4_4();
+      maxmove = 80;
+    }
+    else
+    {
+      lev_4_4();
+      maxmove = 80;
+    }
   }
+}
+void Oasis::lev_1_1() //One of the four configurations for level 1
+{
+  v1 = {50,50};v2 = {150,50};v3 = {250,50};
+  v4 = {350,50};v5 = {50,150};v6 = {150,150};
+  v7 = {350,150};v8 = {250,350};v9 = {50,250};
+  v10 = {150,250};v11 = {350,350};v12 = {250,150};
+  v13 = {50,350};v14 = {150,350};v15 = {350,250};
+  v16 = {250,250};cloc=10;
+}
+void Oasis::lev_1_2() //One of the four configurations for level 1
+{
+  v1 = {50,50};v2 = {150,50};v3 = {250,50};
+  v4 = {350,50};v5 = {50,150};v6 = {150,150};
+  v7 = {350,150};v8 = {250,350};v9 = {50,250};
+  v10 = {350,350};v11 = {250,250};v12 = {250,150};
+  v13 = {50,350};v14 = {150,350};v15 = {350,250};
+  v16 = {150,250};cloc=10;
+}
+void Oasis::lev_1_3() //One of the four configurations for level 1
+{
+  v1 = {50,50};v2 = {250,250};v3 = {250,50};
+  v4 = {350,50};v5 = {50,150};v6 = {150,150};
+  v7 = {350,150};v8 = {250,350};v9 = {50,250};
+  v10 = {150,250};v11 = {350,350};v12 = {250,150};
+  v13 = {50,350};v14 = {150,350};v15 = {350,250};
+  v16 = {150,50};cloc=9;
+}
+void Oasis::lev_1_4() //One of the four configurations for level 1
+{
+  v1 = {50,50};v2 = {150,50};v3 = {250,50};
+  v4 = {350,50};v5 = {50,150};v6 = {150,150};
+  v7 = {350,150};v8 = {250,250};v9 = {50,250};
+  v10 = {150,250};v11 = {350,350};v12 = {250,150};
+  v13 = {50,350};v14 = {150,350};v15 = {350,250};
+  v16 = {250,350};cloc=10;
+}
+void Oasis::lev_2_1() //One of the four configurations for level 2
+{
+   v1 = {50,50};v2 = {250,150};v3 = {250,50};
+   v4 = {350,50};v5 = {50,150};v6 = {150,50};
+   v7 = {350,250};v8 = {350,350};v9 = {50,250};
+   v10 = {150,250};v11 = {350,150};v12 = {250,350};
+   v13 = {50,350};v14 = {250,250};v15 = {150,350};
+   v16 = {150,150};cloc=7;
+}
+void Oasis::lev_2_2() //One of the four configurations for level 2
+{
+  v1 = {50,50};v2 = {250,150};v3 = {250,50};
+  v4 = {350,50};v5 = {50,150};v6 = {150,150};
+  v7 = {350,250};v8 = {350,350};v9 = {50,250};
+  v10 = {150,250};v11 = {350,150};v12 = {250,350};
+  v13 = {50,350};v14 = {250,250};v15 = {150,350};
+  v16 = {150,50};cloc=8;
+}
+void Oasis::lev_2_3() //One of the four configurations for level 2
+{
+  v1 = {50,50};v2 = {150,150};v3 = {250,50};
+  v4 = {350,50};v5 = {50,150};v6 = {150,50};
+  v7 = {350,250};v8 = {350,350};v9 = {50,250};
+  v10 = {150,250};v11 = {350,150};v12 = {250,350};
+  v13 = {50,350};v14 = {250,250};v15 = {150,350};
+  v16 = {250,150};cloc=7;
+}
+void Oasis::lev_2_4() //One of the four configurations for level 2
+{
+  v1 = {50,50};v2 = {250,150};v3 = {250,50};
+  v4 = {350,50};v5 = {50,150};v6 = {150,50};
+  v7 = {350,250};v8 = {350,350};v9 = {50,250};
+  v10 = {150,150};v11 = {350,150};v12 = {250,350};
+  v13 = {50,350};v14 = {250,250};v15 = {150,350};
+  v16 = {150,250};cloc=6;
+}
+void Oasis::lev_3_1() //One of the four configurations for level 3
+{
+  v1 = {250,250};v2 = {150,250};v3 = {50,150};
+  v4 = {50,50};v5 = {250,350};v6 = {350,350};
+  v7 = {250,150};v8 = {150,50};v9 = {50,250};
+  v10 = {350,250};v11 = {350,150};v12 = {250,50};
+  v13 = {50,350};v14 = {150,350};v15 = {350,50};
+  v16 = {150,150};cloc=4;
+}
+void Oasis::lev_3_2() //One of the four configurations for level 3
+{
+  v1 = {250,250};v2 = {150,250};v3 = {150,150};
+  v4 = {50,50};v5 = {250,350};v6 = {350,350};
+  v7 = {250,150};v8 = {150,50};v9 = {50,250};
+  v10 = {350,250};v11 = {350,150};v12 = {250,50};
+  v13 = {50,350};v14 = {150,350};v15 = {350,50};
+  v16 = {50,150};cloc=4;
+}
+void Oasis::lev_3_3() //One of the four configurations for level 3
+{
+  v1 = {350,50};v2 = {250,250};v3 = {150,250};
+  v4 = {150,50};v5 = {50,50};v6 = {50,350};
+  v7 = {250,50};v8 = {250,350};v9 = {150,150};
+  v10 = {50,150};v11 = {50,250};v12 = {350,150};
+  v13 = {350,350};v14 = {150,350};v15 = {350,250};
+  v16 = {250,150};cloc=1;
+}
+void Oasis::lev_3_4() //One of the four configurations for level 3
+{
+  v1 = {50,250};v2 = {50,350};v3 = {250,150};
+  v4 = {350,50};v5 = {150,150};v6 = {150,250};
+  v7 = {350,150};v8 = {150,350};v9 = {250,50};
+  v10 = {50,150};v11 = {150,50};v12 = {250,350};
+  v13 = {350,350};v14 = {350,250};v15 = {50,50};
+  v16 = {250,250};cloc=1;
+}
+void Oasis::lev_4_1() //One of the four configurations for level 3
+{
+  v1 = {350,350};v2 = {350,250};v3 = {50,250};
+  v4 = {50,350};v5 = {250,350};v6 = {250,250};
+  v7 = {150,250};v8 = {150,350};v9 = {350,150};
+  v10 = {250,150};v11 = {250,50};v12 = {150,50};
+  v13 = {350,50};v14 = {150,150};v15 = {50,150};
+  v16 = {50,50};
+}
+void Oasis::lev_4_2() //One of the four configurations for level 3
+{
+  v1 = {150,50};v2 = {250,50};v3 = {350,350};
+  v4 = {350,250};v5 = {250,250};v6 = {150,350};
+  v7 = {50,50};v8 = {150,250};v9 = {50,350};
+  v10 = {50,150};v11 = {250,150};v12 = {350,150};
+  v13 = {250,350};v14 = {350,50};v15 = {150,150};
+  v16 = {250,50};
+}
+void Oasis::lev_4_3() //One of the four configurations for level 3
+{
+  v1 = {50,350};v2 = {250,50};v3 = {250,150};
+  v4 = {50,250};v5 = {150,150};v6 = {350,50};
+  v7 = {350,350};v8 = {50,150};v9 = {150,250};
+  v10 = {350,250};v11 = {150,350};v12 = {150,50};
+  v13 = {250,350};v14 = {50,50};v15 = {250,250};
+  v16 = {350,150};
+}
+void Oasis::lev_4_4() //One of the four configurations for level 3
+{
+  v1 = {150,150};v2 = {350,350};v3 = {350,250};
+  v4 = {50,250};v5 = {50,350};v6 = {250,350};
+  v7 = {50,150};v8 = {150,50};v9 = {150,250};
+  v10 = {350,50};v11 = {150,350};v12 = {250,250};
+  v13 = {250,150};v14 = {50,50};v15 = {250,50};
+  v16 = {350,150};
 }
 void Oasis::checklevel()
 {
