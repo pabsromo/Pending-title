@@ -4,7 +4,7 @@
 #include "Graph.h"
 #include "GUI.h"
 #include "Point.h"
-//#include "difficulty.cpp"
+#include "highscore.cpp"
 #include "sorcerer.cpp"
 #include "std_lib_facilities_5.h"
 #include "Window.h"
@@ -55,17 +55,21 @@ void Initials_window::enter() {
 	button_pushed = true;
 	int gogo = 1;
 	hide();
+
+	highscore_window win7(Point(100, 100), 500, 700, "High Scores");
+	win7.wait_for_button();
+
 	Oasis win5(Point(0, 0), 500, 700, "Main Game");
-	cout << diff;
+	//cout << diff;
 	win5.diffLev = diff;
 	win5.checklevel();
 	win5.show();
-	//win5.wait_for_button();
 	gui_main();
+
 	Endscreen_window win6 (Point(100,100), 500, 700, "End Screen");
-	win6.total_moves = win5.maxmoves;
+	win6.total_moves = win5.maxmove;
 	win6.correct_tiles = win5.cloc;
-	
+	win6.diff = diff;
 	//
 	//
 	//

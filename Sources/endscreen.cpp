@@ -17,6 +17,7 @@ struct Endscreen_window: Graph_lib:: Window{  // window opens if no remaining mo
 	string score_one, score_two, score_three, score_four, score_five, score_six;
 	int total_moves;
 	int correct_tiles;
+	int diff;
 private: // initialize buttons and in box
 	
 	Button replay_button;
